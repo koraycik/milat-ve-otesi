@@ -6,9 +6,17 @@
     --muted: #274156;
     --heading-font: "Cormorant Garamond", serif;
     --body-font: "Libre Baskerville", Georgia, serif;
+    --topbar-height: 64px;
+    --page-bg: #efe3c0; /* sayfa arka planı (tek renk) */
+    /* üst çubuk: siyah ama sayfaya uyumlu görünmesi için yarı saydam tonlar */
+    --topbar-bg: rgba(0,0,0,0.86);
+    --topbar-bg-2: rgba(0,0,0,0.94);
+    --topbar-text: #efe6cf; /* üst çubukta kullanılacak açık antika metin rengi */
 }
-/*#*/
-/* Google Fonts: tarih / antika his için başlık ve metin fontları */
+/* Tüm bağlantıların altı çizgili görünmesini engelle */
+a, a:link, a:visited, a:hover, a:active, a:focus {
+    text-decoration: none;
+}
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Libre+Baskerville:wght@400;700&display=swap');
 
 html, body {
@@ -17,16 +25,22 @@ html, body {
     font-family: var(--body-font);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: #efe4cf;
-    background-image: url("images-bg.jpg");
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+    background: var(--page-bg) url("images/bg.png") center/cover no-repeat fixed;
+    color: var(--text);
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--text);
+}
+    body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.18); /* metin kontrastı için isteğe göre 0.12-0.35 arası ayarla */
+        pointer-events: none;
+    }
+body{
+    padding-top: var(--topbar-height);
 }
 .container {
     width: calc(100% - 48px);
@@ -57,47 +71,6 @@ h1 {
     display: inline-block;
     transform-origin: center;
     animation: popIn 600ms cubic-bezier(.2,.9,.3,1) forwards, floatY 3s ease-in-out 800ms infinite;
-}
-
-/* Paralelkenar arka plan - başlık ve açıklama için */
-.parallelogram {
-    position: relative;
-    display: inline-block;
-    padding: 0.36em 1.0em; /* metin çevresinde boşluk */
-    color: #2b1f12; /* koyu antika kahverengi */
-    z-index: 1;
-    font-weight: 600;
-    text-shadow: 0 1px 0 rgba(255,255,255,0.25); /* hafif kabartma hissi */
-}
-.parallelogram::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: -16px; /* sola taşma, eğik kenar için */
-    right: -16px; /* sağa taşma */
-    /* Daha belirgin, parşömen / antika tonları + hafif doku */
-    background:
-        linear-gradient(90deg, rgba(255,249,238,0.98) 0%, rgba(241,224,182,0.98) 50%, rgba(227,193,120,0.98) 100%),
-        repeating-linear-gradient(0deg, rgba(0,0,0,0.03) 0 1px, transparent 1px 18px);
-    transform: skewX(-18deg);
-    transform-origin: left center;
-    z-index: -1;
-    border-radius: 6px;
-    box-shadow: 0 10px 28px rgba(30,20,10,0.22), inset 0 -6px 18px rgba(0,0,0,0.06);
-    border: 1px solid rgba(34,28,18,0.06);
-}
-
-/* Küçük ekranlarda paralelkenarı tam genişlik yapmak */
-@media (max-width:600px) {
-    .parallelogram {
-        display: inline-block;
-        padding: 0.28em 0.6em;
-    }
-    .parallelogram::before {
-        left: -10px;
-        right: -10px;
-    }
 }
 
 @keyframes popIn {
@@ -204,7 +177,7 @@ a.nav-link, a.sec-link, a.third-link, a.fourth-link {
 .lang-button {
     position: fixed;
     top: 20px;
-    left: 20px;
+    right: 20px;
     padding: 10px 15px;
     font-size: 14px;
     font-weight: bold;
@@ -221,4 +194,147 @@ a.nav-link, a.sec-link, a.third-link, a.fourth-link {
     background-color: #f99c28;
 }
 
+/* Topbar */
+.topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: var(--topbar-height);
+    z-index: 1200;
+    /* Sayfa arka planından bir tık daha koyu, hafif gradyan */
+    /* yarı saydam siyah gradyan; arka planın tonuyla uyumlu olur */
+    background: linear-gradient(180deg, var(--topbar-bg) 0%, var(--topbar-bg-2) 100%);
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    color: var(--topbar-text);
+}
 
+.topbar-inner {
+    height: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+/* logo */
+.logo img {
+    position: absolute;
+    top: 2px;
+    left: 20px;
+    height: 81px;
+    display: block;
+}
+
+/* menü (ortalanmış) */
+.main-nav {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    justify-content: center;
+    flex: 1 1 auto; /* ortada yer kaplasın */
+}
+
+.nav-item {
+    color: var(--topbar-text);
+    text-decoration: none;
+    padding: 8px 10px;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: background .14s ease, color .12s ease, transform .08s ease;
+    letter-spacing: 0.02em;
+}
+
+    .nav-item:hover, .nav-item:focus, 
+    .top-actions:hover, .top-actions:focus {
+        background: rgba(255,255,255,0.03);
+        color: #fff;
+        transform: translateY(-2px);
+    }
+
+    /* vurgu butonu */
+    .nav-item.special {
+        color: #f5b042;
+        font-weight: 700;
+        background: linear-gradient(180deg, rgba(245,180,66,0.06), rgba(245,180,66,0.02));
+        box-shadow: 0 4px 10px rgba(245,180,66,0.06);
+    }
+
+/* sağ araçlar */
+.top-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-end;
+    text-decoration: none;
+}
+
+.icon-btn {
+    background: transparent;
+    border: none;
+    color: var(--topbar-text);
+    padding: 6px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+    .icon-btn:hover {
+        background: rgba(255,255,255,0.03);
+        transform: translateY(-2px);
+    }
+.user {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.02);
+    color: var(--topbar-text);
+    font-weight: 600;
+}
+
+/* Kısa eylem linki (top-actions içindeki) - nav-item ile uyumlu ama daha küçük */
+.nav-action {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 6px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    color: var(--topbar-text);
+    text-decoration: none;
+    font-weight: 600;
+    transition: transform .08s ease, background .12s ease;
+}
+.nav-action:hover, .nav-action:focus {
+    transform: translateY(-2px);
+    background: rgba(255,255,255,0.03);
+}
+
+/* Daha özgün dokunuş: küçük ikonlara hafif parşömen kenarı (ince) */
+.top-actions .icon-btn {
+    position: relative;
+}
+.top-actions .icon-btn::before {
+    content: "";
+    position: absolute;
+    inset: -4px;
+    border-radius: 6px;
+    background: linear-gradient(90deg, rgba(255,249,238,0.96), rgba(241,224,182,0.96));
+    opacity: 0.06;
+    z-index: -1;
+}
+
+/* responsive: küçük ekranlarda menüyü gizle, sağ/sol düğmeler kalır */
+@media (max-width: 840px) {
+    .main-nav {
+        display: none;
+    }
+    /* veya hamburger yap */
+    .topbar-inner {
+        justify-content: space-between;
+    }
+
+    .logo img {
+        height: 32px;
+    }
+}
