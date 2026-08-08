@@ -338,3 +338,8 @@ a.nav-link, a.sec-link, a.third-link, a.fourth-link {
         height: 32px;
     }
 }
+
+.row{
+    display: flex;
+    gap: 10px;
+}
