@@ -509,3 +509,50 @@ footer{
     color: #f99c28;
     text-decoration: none;
 }
+
+
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 26px;
+    height: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1300;
+}
+.menu-toggle span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background: var(--topbar-text);
+    border-radius: 2px;
+}
+@media (max-width: 840px) {
+    .menu-toggle {
+        display: flex;
+    }
+    .main-nav {
+        display: none;
+        position: fixed;
+        top: var(--topbar-height);
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background: var(--topbar-bg-2);
+        padding: 16px;
+        gap: 10px;
+    }
+    .main-nav.open {
+        display: flex;
+    }
+    .logo img {
+        height: 32px;
+    }
+}
+@media (max-width: 840px) {
+    .row {
+        margin-top: 80px;
+    }
+}
