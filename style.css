@@ -528,6 +528,7 @@ footer{
     width: 100%;
     background: var(--topbar-text);
     border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
 }
 @media (max-width: 840px) {
     .menu-toggle {
