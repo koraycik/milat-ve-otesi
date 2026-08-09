@@ -40,3 +40,18 @@ document.addEventListener("DOMContentLoaded", () => {
         document.documentElement.lang = lang;
     }
 });
+
+const elements = document.querySelectorAll('.photo');
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+    if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        // observer.unobserve(entry.target); // sadece 1 kere oynasın istersen aç
+    }
+});
+}, {
+    threshold: 0.2 // %20'si görünür olunca tetiklenir
+});
+
+elements.forEach(el => observer.observe(el));
