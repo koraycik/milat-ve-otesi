@@ -554,11 +554,11 @@ footer{
 @media (max-width: 840px) {
     .row {
         margin-top: 80px;
-    }
+    }/*
     #about-our-game, #videos{
         transform: rotate(90deg);
         margin-left: 0;
-    }
+    }*/
     html, body {
         display: block;
     }
