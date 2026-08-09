@@ -551,10 +551,14 @@ footer{
         height: 32px;
     }
 }
+
+.nav-item-mobile-only {
+    display: none;
+}
+
 @media (max-width: 840px) {
     html, body {
         display: block;
-        padding-bottom: 200px;
     }
     .row {
         margin-top: 80px;
@@ -562,5 +566,15 @@ footer{
     #about-our-game, #videos {
         transform: none;
         margin-left: 0;
+    }
+    .top-actions {
+        display: none;
+    }
+    .nav-item-mobile-only {
+        display: block;
+    }
+    .site-footer {
+        position: static;
+        margin-top: 40px;
     }
 }
