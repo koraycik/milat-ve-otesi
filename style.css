@@ -559,4 +559,7 @@ footer{
         transform: rotate(90deg);
         margin-left: 0;
     }
+    html, body {
+        display: block;
+    }
 }
