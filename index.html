@@ -14,7 +14,13 @@
     <header class="topbar">
         <div class="topbar-inner">
             <a href="index.html" class="logo"><img src="images/logo.png" alt="Milat ve Ötesi"></a>
-            <button id="lang-btn" class="lang-button">EN/TR</button>
+            <div id="lang-dropdown" class="lang-dropdown">
+                <button id="lang-btn" class="lang-button" aria-haspopup="listbox" aria-expanded="false">Dil</button>
+                <ul id="lang-list" class="lang-list" role="listbox" aria-labelledby="lang-btn" hidden>
+                    <li role="option" data-lang="tr" aria-selected="false">TR</li>
+                    <li role="option" data-lang="en" aria-selected="false">EN</li>
+                </ul>
+            </div>
 
             <nav class="main-nav" role="navigation" aria-label="Ana Menü">
                 <a class="nav-item" href="#" data-en="Videos" data-tr="Videolar">Videolar</a>
@@ -28,8 +34,12 @@
         </div>
     </header>
 
-    <footer>
-        <p data-en="&copy; 2023 Milat ve Otesi. All rights reserved." data-tr="&copy; 2023 Milat ve Otesi. Tüm hakları saklıdır.">&copy; 2023 Milat ve Otesi. Tüm hakları saklıdır.</p>
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p data-en="&copy; 2026 Milat ve Otesi. All rights reserved." data-tr="&copy; 2026 Milat ve Otesi. Tüm hakları saklıdır.">&copy; 2026 Milat ve Otesi. Tüm hakları saklıdır.</p>
+            <p data-en="For communication and suggestions, you can use this email address: bakiikoray@gmail.com." data-tr="İletişim ve öneriler için bu gmail adresini kullanabilirsiniz: bakiikoray@gmail.com.">İletişim ve öneriler için bu gmail adresini kullanabilirsiniz: bakiikoray@gmail.com.</p>
+            <a id="contact-link" href="https://mail.google.com/mail/?view=cm&fs=1&to=bakiikoray@gmail.com" target="_blank" data-en="Contact Us" data-tr="Bize Ulaşın">Bize Ulaşın</a>
+        </div>
     </footer>
 
     <div class="row">

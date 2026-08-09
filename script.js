@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     const langBtn = document.getElementById('lang-btn');
+    const langList = document.getElementById('lang-list');
+    const langDropdown = document.getElementById('lang-dropdown');
 
     // Tarayıcı hafızasında dil seçimi varsa onu al, yoksa varsayılan 'tr' yap
     let currentLang = localStorage.getItem('site-lang') || 'tr';
@@ -7,18 +9,38 @@ document.addEventListener("DOMContentLoaded", () => {
     // Sayfa ilk yüklendiğinde hafızadaki dile göre elementleri ayarla
     applyLanguage(currentLang);
 
+    // Toggle list visibility
     if (langBtn) {
-        langBtn.addEventListener('click', () => {
-            // Dil değiştir
-            currentLang = (currentLang === 'tr') ? 'en' : 'tr';
-
-            // Hafızaya kaydet (Sayfa yenilense de dil kaybolmaz)
-            localStorage.setItem('site-lang', currentLang);
-
-            // Dili sayfaya uygula
-            applyLanguage(currentLang);
+        langBtn.addEventListener('click', (e) => {
+            const expanded = langBtn.getAttribute('aria-expanded') === 'true';
+            langBtn.setAttribute('aria-expanded', String(!expanded));
+            if (langList) langList.hidden = expanded;
         });
     }
+
+    // Seçim yapıldığında dili uygula
+    if (langList) {
+        langList.addEventListener('click', (e) => {
+            const li = e.target.closest('[data-lang]');
+            if (!li) return;
+            const lang = li.getAttribute('data-lang');
+            currentLang = lang;
+            localStorage.setItem('site-lang', currentLang);
+            applyLanguage(currentLang);
+            // close
+            if (langBtn) langBtn.setAttribute('aria-expanded', 'false');
+            langList.hidden = true;
+        });
+    }
+
+    // Click outside to close
+    document.addEventListener('click', (e) => {
+        if (!langDropdown) return;
+        if (!langDropdown.contains(e.target)) {
+            if (langBtn) langBtn.setAttribute('aria-expanded', 'false');
+            if (langList) langList.hidden = true;
+        }
+    });
 
     // Dil değiştirme fonksiyonu
     function applyLanguage(lang) {
@@ -31,9 +53,18 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        // Butonun üzerindeki yazıyı güncelle
+        // Butonun üzerindeki yazıyı güncelle (görünen dil adı)
         if (langBtn) {
-            langBtn.textContent = (lang === 'tr') ? 'EN' : 'TR';
+            langBtn.textContent = (lang === 'tr') ? 'TR' : 'EN';
+        }
+
+        // Liste üzerindeki seçim durumunu güncelle
+        if (langList) {
+            const options = langList.querySelectorAll('[data-lang]');
+            options.forEach(opt => {
+                const is = opt.getAttribute('data-lang') === lang;
+                opt.setAttribute('aria-selected', String(is));
+            });
         }
 
         // HTML etiketinin dil özniteliğini güncelle
