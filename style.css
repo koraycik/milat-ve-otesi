@@ -48,6 +48,10 @@ body{
     min-height: 100vh;
 }
 
+body.page-videos {
+    align-items: flex-start;
+}
+
 .container {
     width: calc(100% - 48px);
     max-width: 880px;
@@ -71,7 +75,8 @@ h1 {
 }
 
 #cake {
-    /*margin-top: 25px;*/
+    margin-top: 25px;
+    top: 50px;
     text-align: center;
     font-size: clamp(2.2rem, 6vw, 4.2rem);
     font-weight: 700;
@@ -423,6 +428,16 @@ a.nav-link, a.sec-link, a.third-link, a.fourth-link {
     margin-bottom: 100px;
 }
 
+.row-videos {
+    margin-top: 0px; /* istediğin değeri buradan ayarla */
+}
+
+@media (max-width: 840px) {
+    .row-videos {
+        margin-top: 80px; /* mobilde ne kadar yukarıda olsun istersen */
+    }
+}
+
 .video-image {
     max-width: 100%;
     width: 300px;
@@ -463,6 +478,66 @@ a.nav-link, a.sec-link, a.third-link, a.fourth-link {
 
 .imgg {
     border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.imgg a {
+    display: block;
+    position: relative;
+}
+
+.imgg .video-image {
+    display: block;
+    transition: filter 0.25s ease, transform 0.3s ease;
+}
+
+/* hover'da resmi hafif karart */
+.imgg a:hover .video-image {
+    filter: brightness(0.6);
+    transform: scale(1.03);
+}
+
+/* play butonunun daire arka planı */
+.imgg a::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.55);
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    pointer-events: none;
+}
+
+/* play butonunun üçgeni */
+.imgg a::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-style: solid;
+    border-width: 12px 0 12px 20px;
+    border-color: transparent transparent transparent #ffffff;
+    transform: translate(-38%, -50%);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    pointer-events: none;
+}
+
+.imgg a:hover::before,
+.imgg a:hover::after {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.imgg a:hover::after {
+    transform: translate(-38%, -50%);
 }
 
 #videos{
@@ -595,5 +670,25 @@ footer{
     }
     .menu-toggle[aria-expanded="true"] span:nth-child(3) {
         transform: translateY(-8.5px) rotate(-45deg);
+    }
+}
+
+.video-grid {
+    max-width: 1200px;
+    margin: 0 auto 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px 32px;
+    padding: 0 20px;
+}
+
+.video-grid .photo {
+    flex-direction: column;
+    margin-bottom: 0;
+}
+
+@media (max-width: 840px) {
+    .video-grid .photo {
+        flex-direction: column;
     }
 }
