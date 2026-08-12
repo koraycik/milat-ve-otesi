@@ -11,7 +11,6 @@ The website handles game promotion, a video gallery, and displays data (scores, 
 Tech stack: HTML, CSS, JavaScript, Firebase Firestore, GitHub Pages / Firebase Hosting
 
 For communication: 
-- Gmail: bakiikoray@gmail.com
 - Linkedn: https://www.linkedin.com/in/koray-baki-506676354/
 - X: https://x.com/koraybakii
 
@@ -30,7 +29,6 @@ Web sitesi; oyun tanıtımı, video galerisi ve Unity ile geliştirilen oyundan 
 Kullanılan teknolojiler: HTML, CSS, JavaScript, Firebase Firestore, GitHub Pages / Firebase Hosting
 
 İletişim için: 
-- Gmail: bakiikoray@gmail.com
 - Linkedn: https://www.linkedin.com/in/koray-baki-506676354/
 - X: https://x.com/koraybakii
 
