@@ -18,7 +18,6 @@
 a, a:link, a:visited, a:hover, a:active, a:focus {
     text-decoration: none;
 }
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Libre+Baskerville:wght@400;700&display=swap');
 
 html, body {
     height: 100%;
@@ -177,7 +176,7 @@ p {
         font-size: 1.4rem;
     }
 }
-
+/*
 #aa {
     position: absolute;
     top: 350px;
@@ -217,6 +216,7 @@ a.nav-link, a.sec-link, a.third-link, a.fourth-link {
     position: absolute;
     top: 480px;
 }
+    */
 .lang-dropdown{
     position: fixed;
     top: 18px;
