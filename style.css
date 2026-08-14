@@ -1,103 +1,93 @@
 :root {
     --bg-start: #f5f7fa;
     --bg-end: #c3cfe2;
-    --card-bg: rgba(255,255,255,0.66);
+    --card-bg: rgba(255, 255, 255, 0.45);
+    --card-border: rgba(255, 255, 255, 0.3);
+    --card-hover-border: rgba(245, 176, 66, 0.6);
     --text: #0b2340;
     --muted: #274156;
+    --accent-gold: #e69c24;
+    --accent-gold-glow: rgba(230, 156, 36, 0.35);
     --heading-font: "Cormorant Garamond", serif;
     --body-font: "Libre Baskerville", Georgia, serif;
-    --topbar-height: 64px;
-    --page-bg: #efe3c0; /* sayfa arka planı (tek renk) */
-    /* üst çubuk: siyah ama sayfaya uyumlu görünmesi için yarı saydam tonlar */
-    --topbar-bg: rgba(0,0,0,0.86);
-    --topbar-bg-2: rgba(0,0,0,0.94);
-    --topbar-text: #efe6cf; /* üst çubukta kullanılacak açık antika metin rengi */
+    --topbar-height: 72px;
+    --page-bg: #efe3c0;
+    --topbar-bg: rgba(8, 18, 32, 0.92);
+    --topbar-bg-2: rgba(4, 10, 20, 0.98);
+    --topbar-text: #efe6cf;
     --footer-height: 48px;
 }
-/* Tüm bağlantıların altı çizgili görünmesini engelle */
+
+/* Bağlantı altı çizgilerini kaldır */
 a, a:link, a:visited, a:hover, a:active, a:focus {
     text-decoration: none;
 }
 
 html, body {
-    height: 100%;
+    min-height: 100%;
     margin: 0;
     font-family: var(--body-font);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     background: var(--page-bg) url("images/bg.png") center/cover no-repeat fixed;
     color: var(--text);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text);
 }
-    body::after {
-        content: "";
-        position: fixed;
-        inset: 0;
-        background: rgba(0,0,0,0.18); /* metin kontrastı için isteğe göre 0.12-0.35 arası ayarla */
-        pointer-events: none;
-    }
 
-body{
-    padding-top: var(--topbar-height);
-    padding-bottom: 120px;
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.3) 100%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+body {
+    padding-top: calc(var(--topbar-height) + 30px);
+    padding-bottom: 100px;
     box-sizing: border-box;
-    min-height: 100vh;
 }
 
 body.page-videos {
     align-items: flex-start;
 }
 
-.container {
-    width: calc(100% - 48px);
-    max-width: 880px;
-    padding: 48px;
-    border-radius: 16px;
-    background: var(--card-bg);
-    box-shadow: 0 12px 30px rgba(10, 20, 40, 0.12);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    text-align: center;
-}
-
 h1 {
     margin: 0 0 8px 0;
     font-weight: 600;
-    font-size: clamp(1.6rem, 4vw, 2.6rem);
+    font-size: clamp(1.4rem, 3vw, 2.2rem);
     font-family: var(--heading-font);
     color: var(--text);
     line-height: 1.1;
     letter-spacing: -0.01em;
 }
 
+/* BÜYÜK ANA BAŞLIK ("Milat ve Ötesi!") */
 #cake {
-    margin-top: 25px;
-    top: 50px;
+    position: relative;
+    z-index: 1;
+    margin: 10px 0 15px 0;
     text-align: center;
-    font-size: clamp(2.2rem, 6vw, 4.2rem);
+    font-size: clamp(2.2rem, 5.5vw, 3.8rem);
     font-weight: 700;
-    letter-spacing: -0.02em;
-    display: inline-block;
+    letter-spacing: -0.01em;
+    display: block;
     transform-origin: center;
+    text-shadow: 0 4px 16px rgba(0,0,0,0.15);
     animation: popIn 600ms cubic-bezier(.2,.9,.3,1) forwards, floatY 3s ease-in-out 800ms infinite;
 }
 
 @keyframes popIn {
     0% {
         opacity: 0;
-        transform: translateY(10px) scale(.96);
-        filter: blur(6px);
+        transform: translateY(18px) scale(.95);
+        filter: blur(8px);
     }
-
     60% {
         opacity: 1;
-        transform: translateY(-6px) scale(1.03);
+        transform: translateY(-4px) scale(1.02);
         filter: blur(0);
     }
-
     100% {
         opacity: 1;
         transform: translateY(0) scale(1);
@@ -106,167 +96,30 @@ h1 {
 }
 
 @keyframes floatY {
-    0% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(-6px);
-    }
-
-    100% {
-        transform: translateY(0);
-    }
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    #cake {
-        animation: none;
-        transition: none;
+    #cake, .photo {
+        animation: none !important;
+        transition: none !important;
+        opacity: 1 !important;
+        transform: none !important;
     }
 }
 
 p {
-    margin: 0;
-    margin-top: 12px;
+    margin: 8px 0 0 0;
     color: var(--muted);
     font-weight: 300;
-    font-size: 1rem;
+    font-size: 0.9rem;
     text-align: center;
     font-family: var(--body-font);
+    line-height: 1.5;
 }
 
-.site-footer {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 1300;
-    background: rgba(8, 18, 32, 0.92);
-    border-top: 1px solid rgba(255,255,255,0.08);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-}
-
-.footer-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 12px 20px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 14px 24px;
-}
-
-.footer-content p {
-    margin: 0;
-    color: #f8ead2;
-    font-size: 0.95rem;
-    text-align: center;
-}
-
-@media (max-width:420px) {
-    .container {
-        padding: 24px;
-        border-radius: 12px;
-    }
-
-    h1 {
-        font-size: 1.4rem;
-    }
-}
-/*
-#aa {
-    position: absolute;
-    top: 350px;
-    font-size: large;
-    font: bolder;
-}
-
-.link {
-    position: absolute;
-    top: 400px;
-}
-
-a.nav-link, a.sec-link, a.third-link, a.fourth-link {
-    position: absolute;
-    top: 430px;
-    color: #0b2340;
-    text-decoration: none;
-    font-weight: 500;
-    transition: color .18s ease, text-decoration-color .18s ease;
-}
-
-    a.nav-link:hover, a.nav-link:focus, a.sec-link:hover,
-    a.sec-link:focus, a.third-link:hover, a.third-link:focus,
-    a.fourth-link:hover, a.fourth-link:hover{
-        color: green;
-        text-decoration: none;
-    }
-
-#first {
-    left: 450px;
-}
-
-#sec {
-    right: 450px;
-}
-#odr{
-    position: absolute;
-    top: 480px;
-}
-    */
-.lang-dropdown{
-    position: fixed;
-    top: 18px;
-    right: 20px;
-    z-index: 1200;
-}
-
-.lang-button {
-    padding: 8px 12px;
-    font-size: 14px;
-    font-weight: bold;
-    cursor: pointer;
-    background-color: #333;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    transition: background 0.18s;
-}
-
-.lang-button:hover { background-color: #f99c28; }
-
-.lang-list{
-    position: absolute;
-    right: 0;
-    top: calc(100% + 6px);
-    margin: 0;
-    padding: 6px 8px;
-    list-style: none;
-    background: #fff;
-    color: #0b2340;
-    border-radius: 8px;
-    box-shadow: 0 6px 18px rgba(8,18,32,0.18);
-    min-width: 120px;
-    overflow: hidden;
-    will-change: transform, opacity;
-}
-
-.lang-list[hidden]{ display:none; }
-
-.lang-list li{
-    padding: 8px 10px;
-    cursor: pointer;
-}
-
-.lang-list li[aria-selected="true"]{
-    background: linear-gradient(90deg, rgba(24,74,166,0.12), rgba(15,47,106,0.08));
-    font-weight:700;
-}
-
-/* Topbar */
+/* TOPBAR & SABİTLENMİŞ YAPI */
 .topbar {
     position: fixed;
     top: 0;
@@ -275,205 +128,279 @@ a.nav-link, a.sec-link, a.third-link, a.fourth-link {
     width: 100%;
     height: var(--topbar-height);
     z-index: 1200;
-    /* Sayfa arka planından bir tık daha koyu, hafif gradyan */
-    /* yarı saydam siyah gradyan; arka planın tonuyla uyumlu olur */
     background: linear-gradient(180deg, var(--topbar-bg) 0%, var(--topbar-bg-2) 100%);
-    border-bottom: 1px solid rgba(255,255,255,0.04);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     color: var(--topbar-text);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
 }
 
 .topbar-inner {
     height: 100%;
-    max-width: 1200px;
+    max-width: 1240px;
     margin: 0 auto;
-    padding: 10px 20px;
+    padding: 0 20px;
     display: flex;
     align-items: center;
-    gap: 18px;
+    justify-content: space-between;
+    position: relative;
 }
 
-/* removed extra padding to avoid shifting page flow */
+/* KESİN ÇÖZÜM: Sol Alan Sabit Genişliktedir (180px), Sağa/Sola Kaymaz */
+.topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 180px;
+    flex-shrink: 0;
+}
 
-/* logo */
+.logo {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
 .logo img {
-    position: absolute;
-    top: 2px;
-    left: 20px;
-    height: 81px;
+    height: 48px;
     display: block;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+    transition: transform 0.3s ease;
 }
 
-/* menü (ortalanmış) */
+.logo img:hover {
+    transform: scale(1.04);
+}
+
+/* DİL BUTONU (Genişliği 58px Olarak Sabitlendi) */
+.lang-dropdown {
+    position: relative;
+    z-index: 1200;
+    flex-shrink: 0;
+}
+
+.lang-button {
+    width: 58px;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.05));
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 6px;
+    transition: all 0.25s ease;
+    backdrop-filter: blur(4px);
+    display: block;
+    box-sizing: border-box;
+}
+
+.lang-button:hover {
+    background: var(--accent-gold);
+    color: #000;
+    border-color: var(--accent-gold);
+    box-shadow: 0 0 12px var(--accent-gold-glow);
+}
+
+.lang-list {
+    position: absolute;
+    left: 0;
+    top: calc(100% + 6px);
+    margin: 0;
+    padding: 4px;
+    list-style: none;
+    background: rgba(11, 35, 64, 0.96);
+    border: 1px solid rgba(255,255,255,0.18);
+    color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    min-width: 80px;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+.lang-list[hidden] { display: none; }
+
+.lang-list li {
+    padding: 6px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.2s;
+    font-size: 12px;
+    text-align: center;
+}
+
+.lang-list li:hover {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.lang-list li[aria-selected="true"] {
+    background: var(--accent-gold);
+    color: #000;
+    font-weight: 700;
+}
+
+/* ORTADAKİ NAVİGASYON (Esnek Alan) */
 .main-nav {
     display: flex;
-    gap: 14px;
+    gap: 12px;
     align-items: center;
     justify-content: center;
-    flex: 1 1 auto; /* ortada yer kaplasın */
+    flex: 1;
 }
 
 .nav-item {
     color: var(--topbar-text);
     text-decoration: none;
-    padding: 8px 10px;
+    padding: 6px 12px;
     border-radius: 6px;
     font-weight: 500;
-    transition: background .14s ease, color .12s ease, transform .08s ease;
-    letter-spacing: 0.02em;
+    font-size: 0.85rem;
+    transition: all 0.25s ease;
+    white-space: nowrap;
 }
 
-    .nav-item:hover, .nav-item:focus, 
-    .top-actions:hover, .top-actions:focus {
-        background: rgba(255,255,255,0.03);
-        color: #fff;
-        transform: translateY(-2px);
-    }
+.nav-item:hover, .nav-item:focus {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    transform: translateY(-2px);
+}
 
-    /* vurgu butonu */
-    .nav-item.special {
-        color: #f5b042;
-        font-weight: 700;
-        background: linear-gradient(180deg, rgba(245,180,66,0.06), rgba(245,180,66,0.02));
-        box-shadow: 0 4px 10px rgba(245,180,66,0.06);
-    }
+.nav-item.special {
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.85rem;
+    background: linear-gradient(135deg, rgba(245, 176, 66, 0.25), rgba(245, 176, 66, 0.05));
+    border: 1px solid rgba(245, 176, 66, 0.4);
+    box-shadow: 0 3px 12px rgba(245, 176, 66, 0.15);
+}
 
-/* sağ araçlar */
+.nav-item.special:hover {
+    background: linear-gradient(135deg, rgba(245, 176, 66, 0.4), rgba(245, 176, 66, 0.15));
+    box-shadow: 0 5px 16px rgba(245, 176, 66, 0.3);
+}
+
+/* SAĞ TARAF (Sabit 240px Genişlik İle Dengelenmiştir) */
 .top-actions {
     display: flex;
     gap: 10px;
     align-items: center;
     justify-content: flex-end;
-    text-decoration: none;
+    width: 240px;
+    flex-shrink: 0;
 }
 
-.icon-btn {
-    background: transparent;
-    border: none;
-    color: var(--topbar-text);
-    padding: 6px 8px;
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-    .icon-btn:hover {
-        background: rgba(255,255,255,0.03);
-        transform: translateY(-2px);
-    }
 .user {
     display: inline-block;
-    padding: 6px 10px;
-    border-radius: 8px;
-    background: rgba(255,255,255,0.02);
-    color: var(--topbar-text);
-    font-weight: 600;
+    padding: 8px 14px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #f5b042, #d48311);
+    color: #0b2340 !important;
+    font-weight: 700;
+    font-size: 0.82rem;
+    white-space: nowrap;
+    box-shadow: 0 3px 14px var(--accent-gold-glow);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.4);
 }
 
-/* Kısa eylem linki (top-actions içindeki) - nav-item ile uyumlu ama daha küçük */
-.nav-action {
-    display: inline-block;
-    padding: 6px 10px;
-    border-radius: 6px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-    color: var(--topbar-text);
-    text-decoration: none;
-    font-weight: 600;
-    transition: transform .08s ease, background .12s ease;
-}
-.nav-action:hover, .nav-action:focus {
-    transform: translateY(-2px);
-    background: rgba(255,255,255,0.03);
+.user:hover {
+    transform: translateY(-2px) scale(1.01);
+    box-shadow: 0 6px 20px rgba(245, 176, 66, 0.5);
+    background: linear-gradient(135deg, #ffbe53, #e58f17);
 }
 
-/* Daha özgün dokunuş: küçük ikonlara hafif parşömen kenarı (ince) */
-.top-actions .icon-btn {
-    position: relative;
-}
-.top-actions .icon-btn::before {
-    content: "";
-    position: absolute;
-    inset: -4px;
-    border-radius: 6px;
-    background: linear-gradient(90deg, rgba(255,249,238,0.96), rgba(241,224,182,0.96));
-    opacity: 0.06;
-    z-index: -1;
-}
-
-/* responsive: küçük ekranlarda menüyü gizle, sağ/sol düğmeler kalır */
-@media (max-width: 840px) {
-    .main-nav {
-        display: none;
-    }
-    /* veya hamburger yap */
-    .topbar-inner {
-        justify-content: space-between;
-    }
-
-    .logo img {
-        height: 32px;
-    }
-}
-
+/* SAYFA DÜZENİ */
 .row, .row2 {
+    position: relative;
+    z-index: 1;
     text-align: center;
-    max-width: 900px;
+    max-width: 860px;
     margin: 0 auto;
-    /*padding: 0 20px;*/
 }
 
-.row{
-    margin-top: 500px;
+.row {
+    margin-top: 10px;
 }
 
-.row2{
-    margin-bottom: 100px;
+.row2 {
+    margin-bottom: 30px;
+    padding: 0 20px;
 }
 
-.row-videos {
-    margin-top: 0px; /* istediğin değeri buradan ayarla */
+.row2 h4 {
+    font-weight: 400;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--muted);
+    background: rgba(255, 255, 255, 0.35);
+    padding: 16px 24px;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.4);
+    backdrop-filter: blur(6px);
+    margin: 0;
 }
 
-@media (max-width: 840px) {
-    .row-videos {
-        margin-top: 80px; /* mobilde ne kadar yukarıda olsun istersen */
+/* KARTLAR VE KAYDIRMA ANİMASYONU */
+@keyframes scrollFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
     }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.photo {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 24px;
+    margin: 0 auto 30px;
+    max-width: 800px;
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(11, 35, 64, 0.08);
+
+    animation: scrollFadeIn linear both;
+    animation-timeline: view();
+    animation-range: entry 10% cover 30%;
+
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.photo:hover {
+    box-shadow: 0 16px 36px rgba(11, 35, 64, 0.15);
+    border-color: var(--card-hover-border);
+}
+
+.photo p {
+    margin: 0;
+    text-align: left;
+    flex: 1;
+    font-size: 0.92rem;
+    color: var(--text);
 }
 
 .video-image {
     max-width: 100%;
-    width: 300px;
-    margin-top: 40px;
-    margin-bottom: 40px;
-    /*margin: 0 auto;*/
+    width: 260px;
     height: auto;
     border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-}
-
-.photo{
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: 24px;
-    background-color: #1a1a2e;
-    padding: 20px;
-    margin-bottom: 40px;
-
-    opacity: 0;
-    transform: translateY(50px);
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-}
-.photo.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.photo p {
-    margin-top: 0;
-    margin: 0 auto;
-    text-align: center;
-    max-width: 520px;
-    color: #ffffff;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+    display: block;
+    transition: transform 0.4s ease, filter 0.4s ease;
 }
 
 .imgg {
@@ -481,6 +408,8 @@ a.nav-link, a.sec-link, a.third-link, a.fourth-link {
     position: relative;
     overflow: hidden;
     display: inline-block;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    flex-shrink: 0;
 }
 
 .imgg a {
@@ -488,89 +417,228 @@ a.nav-link, a.sec-link, a.third-link, a.fourth-link {
     position: relative;
 }
 
-.imgg .video-image {
-    display: block;
-    transition: filter 0.25s ease, transform 0.3s ease;
-}
-
-/* hover'da resmi hafif karart */
 .imgg a:hover .video-image {
-    filter: brightness(0.6);
-    transform: scale(1.03);
+    filter: brightness(0.7) scale(1.04);
 }
 
-/* play butonunun daire arka planı */
 .imgg a::before {
     content: "";
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 64px;
-    height: 64px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
-    background: rgba(0, 0, 0, 0.55);
-    transform: translate(-50%, -50%) scale(0.8);
+    background: rgba(8, 18, 32, 0.75);
+    border: 2px solid rgba(255,255,255,0.8);
+    transform: translate(-50%, -50%) scale(0.85);
     opacity: 0;
-    transition: opacity 0.25s ease, transform 0.25s ease;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     pointer-events: none;
+    z-index: 2;
 }
 
-/* play butonunun üçgeni */
 .imgg a::after {
     content: "";
     position: absolute;
     top: 50%;
     left: 50%;
     border-style: solid;
-    border-width: 12px 0 12px 20px;
+    border-width: 7px 0 7px 13px;
     border-color: transparent transparent transparent #ffffff;
-    transform: translate(-38%, -50%);
+    transform: translate(-35%, -50%) scale(0.85);
     opacity: 0;
-    transition: opacity 0.25s ease;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     pointer-events: none;
+    z-index: 3;
 }
 
-.imgg a:hover::before,
-.imgg a:hover::after {
+.imgg a:hover::before {
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
+    background: var(--accent-gold);
+    border-color: #fff;
 }
 
 .imgg a:hover::after {
-    transform: translate(-38%, -50%);
+    opacity: 1;
+    transform: translate(-35%, -50%) scale(1);
+    border-color: transparent transparent transparent #0b2340;
 }
 
-#videos{
-    transform: rotate(-90deg);
-    margin-left: -50px;
+#videos, #about-our-game {
     text-decoration: none;
-    color: #ffffff;
+    color: var(--text);
+    font-size: 0.95rem;
+    letter-spacing: 0.05em;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    margin: 0 6px;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
-#about-our-game {
-    transform: rotate(-90deg);
-    margin-left: -100px;
-    text-decoration: none;
-    color: #ffffff;
+#about-our-game-text {
+    margin: 0;
 }
 
-#about-our-game-text{
-    margin-right: 40px;
-}
-
-footer{
+/* FOOTER */
+.site-footer {
     position: fixed;
-    bottom: 0;
     left: 0;
     right: 0;
-    width: 100%;
-    background-color: var(--topbar-bg);
-    color: var(--topbar-text);
+    bottom: 0;
+    z-index: 1300;
+    background: var(--topbar-bg);
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.25);
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px 20px;
+}
+
+.footer-content p {
+    margin: 0;
+    color: #f8ead2;
+    font-size: 0.82rem;
     text-align: center;
-    padding: 10px 0;
-    font-size: 14px;
-    z-index: 1100;
-    box-shadow: 0 -6px 18px rgba(0,0,0,0.18);
+}
+
+/* HAMBURGER MENÜ */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 26px;
+    height: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1300;
+}
+
+.menu-toggle span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background: var(--topbar-text);
+    border-radius: 3px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.nav-item-mobile-only {
+    display: none;
+}
+
+/* MOBİL & TABLET UYUMU */
+@media (max-width: 840px) {
+    body {
+        padding-top: calc(var(--topbar-height) + 15px);
+    }
+
+    #cake {
+        font-size: clamp(2rem, 8vw, 2.8rem);
+        margin-top: 5px;
+    }
+
+    .topbar-inner {
+        padding: 0 15px;
+    }
+
+    .topbar-left {
+        width: auto;
+    }
+
+    .logo img {
+        height: 38px;
+    }
+
+    .top-actions {
+        display: none;
+    }
+
+    .menu-toggle {
+        display: flex;
+    }
+
+    .main-nav {
+        display: none;
+        position: fixed;
+        top: var(--topbar-height);
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background: var(--topbar-bg-2);
+        padding: 20px;
+        gap: 14px;
+        backdrop-filter: blur(20px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .main-nav.open {
+        display: flex;
+    }
+
+    .nav-item-mobile-only {
+        display: block;
+        background: linear-gradient(135deg, #f5b042, #d48311);
+        color: #0b2340 !important;
+        font-weight: bold;
+        text-align: center;
+        font-size: 0.88rem;
+    }
+
+    .photo {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        gap: 16px;
+    }
+
+    .video-image {
+        width: 100%;
+        max-width: 320px;
+    }
+
+    #about-our-game, #videos {
+        writing-mode: horizontal-tb;
+        transform: none;
+        margin: 4px 0 8px 0;
+        text-align: center;
+        font-size: 1.1rem;
+        font-weight: bold;
+    }
+
+    .photo p {
+        text-align: center;
+    }
+
+    .site-footer {
+        position: static;
+        margin-top: 40px;
+    }
+
+    .menu-toggle[aria-expanded="true"] span:nth-child(1) {
+        transform: translateY(8.5px) rotate(45deg);
+    }
+
+    .menu-toggle[aria-expanded="true"] span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .menu-toggle[aria-expanded="true"] span:nth-child(3) {
+        transform: translateY(-8.5px) rotate(-45deg);
+    }
 }
 
 #contact-link {
@@ -583,112 +651,4 @@ footer{
 #contact-link:hover, #contact-link:focus {
     color: #f99c28;
     text-decoration: none;
-}
-
-
-.menu-toggle {
-    display: none;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 26px;
-    height: 20px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    z-index: 1300;
-}
-.menu-toggle span {
-    display: block;
-    height: 3px;
-    width: 100%;
-    background: var(--topbar-text);
-    border-radius: 2px;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-}
-@media (max-width: 840px) {
-    .menu-toggle {
-        display: flex;
-    }
-    .main-nav {
-        display: none;
-        position: fixed;
-        top: var(--topbar-height);
-        left: 0;
-        right: 0;
-        flex-direction: column;
-        background: var(--topbar-bg-2);
-        padding: 16px;
-        gap: 10px;
-    }
-    .main-nav.open {
-        display: flex;
-    }
-    .logo img {
-        height: 32px;
-    }
-}
-
-.nav-item-mobile-only {
-    display: none;
-}
-
-@media (max-width: 840px) {
-    html, body {
-        display: block;
-    }
-    .row {
-        margin-top: 80px;
-    }
-    #about-our-game, #videos {
-        transform: none;
-        margin-left: 0;
-    }
-    .top-actions {
-        display: none;
-    }
-    .nav-item-mobile-only {
-        display: block;
-    }
-    .menu-toggle {
-        position: fixed;
-        top: 22px;
-        left: 20px;
-        z-index: 1400;
-    }
-    .logo {
-        display: none;
-    }
-    .site-footer {
-        position: static;
-        margin-top: 40px;
-    }
-    .menu-toggle[aria-expanded="true"] span:nth-child(1) {
-        transform: translateY(8.5px) rotate(45deg);
-    }
-    .menu-toggle[aria-expanded="true"] span:nth-child(2) {
-        opacity: 0;
-    }
-    .menu-toggle[aria-expanded="true"] span:nth-child(3) {
-        transform: translateY(-8.5px) rotate(-45deg);
-    }
-}
-
-.video-grid {
-    max-width: 1200px;
-    margin: 0 auto 40px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 24px 32px;
-    padding: 0 20px;
-}
-
-.video-grid .photo {
-    flex-direction: column;
-    margin-bottom: 0;
-}
-
-@media (max-width: 840px) {
-    .video-grid .photo {
-        flex-direction: column;
-    }
 }
