@@ -106,6 +106,7 @@ h1 {
         transition: none !important;
         opacity: 1 !important;
         transform: none !important;
+        filter: none !important;
     }
 }
 
@@ -344,17 +345,28 @@ p {
 }
 
 /* KARTLAR VE KAYDIRMA ANİMASYONU */
-@keyframes scrollFadeIn {
-    from {
-        opacity: 0;
+@keyframes scrollBlurBoth {
+    0% {
+        opacity: 0.3;
         transform: translateY(40px);
+        filter: blur(8px);
     }
-    to {
+    18% {
         opacity: 1;
         transform: translateY(0);
+        filter: blur(0);
+    }
+    82% {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+    100% {
+        opacity: 0.3;
+        transform: translateY(-40px);
+        filter: blur(8px);
     }
 }
-
 .photo {
     position: relative;
     z-index: 1;
@@ -373,11 +385,9 @@ p {
     border-radius: 18px;
     box-shadow: 0 10px 30px rgba(11, 35, 64, 0.08);
 
-    animation: scrollFadeIn linear both;
-    animation-timeline: view();
-    animation-range: entry 10% cover 30%;
-
-    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    animation: scrollBlurBoth linear both;
+    animation-timeline: view(block var(--topbar-height) var(--footer-height));
+    animation-range: cover 0% cover 100%;
 }
 
 .photo:hover {
@@ -603,6 +613,8 @@ p {
         align-items: center;
         padding: 20px;
         gap: 16px;
+        animation-timeline: view(block var(--topbar-height) 0px);
+        animation-range: cover 0% cover 100%;
     }
 
     .video-image {
