@@ -44,8 +44,14 @@ body::after {
 
 body {
     padding-top: calc(var(--topbar-height) + 30px);
-    padding-bottom: 100px;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+body > div,
+body > footer {
+    width: 100%;
 }
 
 body.page-videos {
@@ -494,10 +500,8 @@ p {
 
 /* FOOTER */
 .site-footer {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    position: static;
+    margin-top: auto;
     z-index: 1300;
     background: var(--topbar-bg);
     border-top: 1px solid rgba(255, 255, 255, 0.12);
@@ -634,12 +638,6 @@ p {
 
     .photo p {
         text-align: center;
-    }
-
-    .site-footer {
-        position: static;
-        margin-top: 40px;
-        margin-bottom: 0;
     }
 
     .menu-toggle[aria-expanded="true"] span:nth-child(1) {
