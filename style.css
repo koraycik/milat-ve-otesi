@@ -638,6 +638,7 @@ p {
     .site-footer {
         position: static;
         margin-top: 40px;
+        margin-bottom: 0;
     }
 
     .menu-toggle[aria-expanded="true"] span:nth-child(1) {
