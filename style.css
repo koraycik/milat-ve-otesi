@@ -515,6 +515,7 @@ p {
     margin: 0 auto;
     padding: 10px 20px;
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
@@ -651,6 +652,10 @@ p {
     .menu-toggle[aria-expanded="true"] span:nth-child(3) {
         transform: translateY(-8.5px) rotate(-45deg);
     }
+
+    .team-member{
+        flex-direction: column;
+    }
 }
 
 #contact-link {
@@ -663,4 +668,29 @@ p {
 #contact-link:hover, #contact-link:focus {
     color: #f99c28;
     text-decoration: none;
+}
+
+.team-member {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.profile-img {
+    width: 100px;           
+    height: 100px;          
+    border-radius: 50%;     
+    object-fit: cover;      
+}
+
+.profile-img:hover{
+    box-shadow: 0 0 20px rgba(201, 172, 127, 0.9), 0 0 35px rgba(201, 172, 127, 0.5);
+    transform: scale(1.05); 
+    border-color: #c9ac7f;
+}
+
+.team-member-name:hover{
+    transform: scale(1.05);
+    font-weight: bold;
 }
