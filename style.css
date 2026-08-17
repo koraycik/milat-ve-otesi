@@ -652,10 +652,10 @@ p {
     .menu-toggle[aria-expanded="true"] span:nth-child(3) {
         transform: translateY(-8.5px) rotate(-45deg);
     }
-
+/*
     .team-member{
         flex-direction: column;
-    }
+    }*/
 }
 
 #contact-link {
@@ -693,4 +693,158 @@ p {
 .team-member-name:hover{
     transform: scale(1.05);
     font-weight: bold;
+}
+
+/* ============ OYUN DİNAMİKLERİ ============ */
+/* ============ OYUN DİNAMİKLERİ ============ */
+.game-dynamics {
+    padding-bottom: 20px;
+}
+
+.game-dynamics .section-header {
+    margin-bottom: 40px;
+}
+
+/* --- Oyun Döngüsü (4 adım) --- */
+.game-loop {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    justify-content: center;
+    gap: 10px;
+    max-width: 1200px;
+    margin: 0 auto 30px;
+    padding: 0 20px;
+}
+
+.loop-arrow {
+    align-self: center;
+    font-size: 1.3rem;
+    color: var(--accent-gold);
+    opacity: 0.7;
+    flex-shrink: 0;
+}
+
+/* --- Ortak kart görünümü (.photo ile aynı dil) --- */
+.dyn-card {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 24px 20px;
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(11, 35, 64, 0.08);
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+
+    animation: scrollBlurBoth linear both;
+    animation-timeline: view(block var(--topbar-height) var(--footer-height));
+    animation-range: cover 0% cover 100%;
+}
+
+.dyn-card:hover {
+    box-shadow: 0 16px 36px rgba(11, 35, 64, 0.15);
+    border-color: var(--card-hover-border);
+}
+
+.dyn-card h3 {
+    font-family: var(--heading-font);
+    color: var(--text);
+    font-size: 1.15rem;
+    margin: 0 0 8px 0;
+}
+
+.dyn-card p {
+    margin: 0;
+}
+
+/* Döngü adımları */
+.loop-step {
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: 260px;
+}
+
+.loop-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    margin-bottom: 10px;
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #0b2340;
+    background: linear-gradient(135deg, #f5b042, #d48311);
+    box-shadow: 0 3px 12px var(--accent-gold-glow);
+}
+
+/* Mekanik kartları */
+.mechanics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px 20px;
+}
+
+.mechanic-icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    filter: drop-shadow(0 3px 6px rgba(0,0,0,0.15));
+}
+
+/* --- Bölüm ayracı --- */
+.dyn-divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    max-width: 700px;
+    margin: 10px auto 30px;
+    padding: 0 20px;
+}
+
+.dyn-divider::before,
+.dyn-divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--accent-gold), transparent);
+}
+
+.dyn-divider span {
+    font-family: var(--heading-font);
+    color: var(--text);
+    font-size: 1.1rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+/* MOBİL UYUM */
+@media (max-width: 840px) {
+    .game-loop {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .loop-step {
+        max-width: 320px;
+        width: 100%;
+    }
+
+    .loop-arrow {
+        transform: rotate(90deg);
+    }
+
+    .dyn-card {
+        animation-timeline: view(block var(--topbar-height) 0px);
+        animation-range: cover 0% cover 100%;
+    }
 }

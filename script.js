@@ -106,3 +106,5 @@ if (menuToggle && mainNav) {
         });
     });
 }
+
+// ============ OYUN DİNAMİKLERİ - Scroll Reveal ============

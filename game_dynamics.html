@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="tr">
-
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,41 +43,71 @@
         </div>
     </header>
 
-    <div class="row row-videos">
-        <h1 id="cake" data-en="Videos" data-tr="Videolar">Videolar</h1>
+<!-- ============ OYUN DİNAMİKLERİ ============ -->
+<section id="oyun-dinamikleri" class="game-dynamics">
+    <div class="container">
+        <div class="section-header reveal">
+            <h1 id="cake">Oyun Dinamikleri</h1>
+            <div class="row2">
+                <h4>Milat ve Ötesi'nde tarihi çağlar arasında yolculuk ederken karşılaşacağın temel mekanikler.</h4>
+            </div>
+        </div>
+
+<!-- Oyun Döngüsü (yatay akış) -->
+    <div class="game-loop">
+        <div class="loop-step dyn-card" data-step="1">
+            <span class="loop-number">01</span>
+            <h3>Çağa Giriş</h3>
+            <p>Seçtiğin tarihi çağa adım at, dönemin atmosferini keşfet.</p>
+        </div>
+        <div class="loop-arrow" aria-hidden="true">→</div>
+        <div class="loop-step dyn-card" data-step="2">
+            <span class="loop-number">02</span>
+            <h3>Görevi Al</h3>
+            <p>Dönemle ilgili bir görev veya bulmaca seni bekliyor.</p>
+        </div>
+        <div class="loop-arrow" aria-hidden="true">→</div>
+        <div class="loop-step dyn-card" data-step="3">
+            <span class="loop-number">03</span>
+            <h3>Bilgiyi Kullan</h3>
+            <p>Tarihi bilgini kullanarak bulmacayı çöz, görevi tamamla.</p>
+        </div>
+        <div class="loop-arrow" aria-hidden="true">→</div>
+        <div class="loop-step dyn-card" data-step="4">
+            <span class="loop-number">04</span>
+            <h3>Ödül & İlerleme</h3>
+            <p>Rozet kazan, bir sonraki çağın kilidini aç.</p>
+        </div>
     </div>
 
-    <div class="video-grid">
-        <div class="photo">
-            <div class="imgg">
-                <a href="https://www.youtube.com" target="_blank">
-                    <img src="images/resim.JPG" alt="video" class="video-image">
-                </a>
-            </div>
-            <p data-en="About War of Independence" data-tr="Kurtuluş Savaşı hakkında">Kurtuluş Savaşı hakkında</p>
+    <div class="dyn-divider"><span>Oyun Mekanikleri</span></div>
+
+    <!-- Mekanik kartları -->
+    <div class="mechanics-grid">
+        <div class="mechanic-card dyn-card">
+            <div class="mechanic-icon">🕰️</div>
+            <h3>Çağlar Arası Geçiş</h3>
+            <p>Farklı tarihi dönemler arasında serbestçe seyahat et, her çağın kendine özgü mekaniklerini deneyimle.</p>
         </div>
+        <div class="mechanic-card dyn-card">
+            <div class="mechanic-icon">🧩</div>
+            <h3>Bilgi Bazlı Bulmacalar</h3>
+            <p>Tarihi olayları ve kişileri kullanarak tasarlanmış bulmacaları çöz.</p>
+        </div>
+        <div class="mechanic-card dyn-card">
+            <div class="mechanic-icon">🎖️</div>
+            <h3>Rozet & Başarım Sistemi</h3>
+            <p>Tamamladığın görevler karşılığında rozetler kazan, ilerlemeni takip et.</p>
+        </div>
+        <div class="mechanic-card dyn-card">
+            <div class="mechanic-icon">📜</div>
+            <h3>Görev Sistemi</h3>
+            <p>Her çağda seni bekleyen ana ve yan görevlerle hikayeyi derinleştir.</p>
+        </div>
+    </div>
+
+    </section>
     
-        <div class="photo">
-            <div class="imgg">
-                <a href="https://www.youtube.com" target="_blank">
-                    <img src="images/resim.JPG" alt="video" class="video-image">
-                </a>
-            </div>
-            <p data-en="Just for Firebase Deploy Test" data-tr="Sadece firebase deploy denemek için">Sadece firebase deploy denemek için</p>
-        </div>
-        
-        <div class="photo">
-            <div class="imgg">
-                <a href="https://www.youtube.com" target="_blank">
-                    <img src="images/resim.JPG" alt="video" class="video-image">
-                </a>
-            </div>
-            <p data-en="Just for Firebase Deploy Test" data-tr="Sadece firebase deploy denemek için">Sadece firebase deploy denemek için</p>
-        </div>
-
-    </div>
-    </div>
-
     <footer class="site-footer">
         <div class="footer-content">
             <p data-en="&copy; 2026 Milat ve Otesi. All rights reserved." data-tr="&copy; 2026 Milat ve Otesi. Tüm hakları saklıdır.">&copy; 2026 Milat ve Otesi. Tüm hakları saklıdır.</p>
@@ -87,5 +116,7 @@
         </div>
     </footer>
 
+<body>
+    
 </body>
-</html> 
+</html>
