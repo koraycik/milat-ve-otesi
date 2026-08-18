@@ -848,3 +848,52 @@ p {
         animation-range: cover 0% cover 100%;
     }
 }
+
+.team-member {
+    position: relative;
+}
+
+.member-popup {
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%) translateY(8px);
+
+    width: 200px;
+    padding: 14px;
+    border-radius: 12px;
+
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 12px 28px rgba(11, 35, 64, 0.2);
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    z-index: 20;
+}
+
+.member-popup p {
+    margin: 0;
+    font-size: 0.82rem;
+    color: var(--text);
+    text-align: center;
+}
+
+.team-member:hover .member-popup {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+    pointer-events: auto;
+}
+
+.member-popup::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 8px solid transparent;
+    border-top-color: var(--card-bg);
+}
