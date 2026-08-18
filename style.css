@@ -508,25 +508,58 @@ p {
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.25);
+    padding: 16px 20px;
 }
 
-.footer-content {
+.footer-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 10px 20px;
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
+    align-items: center;  /* Tüm elemanları merkeze hizalar */
     justify-content: center;
-    align-items: center;
-    gap: 10px 20px;
+    gap: 12px;
 }
 
-.footer-content p {
+/* YAZILARI KENDİ İÇİNDE ORTALAYAN VE YAN YANA DİZEN KURAL */
+.footer-content, 
+.footer-content2 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+}
+
+.footer-content p, 
+.footer-content2 p {
     margin: 0;
     color: #f8ead2;
     font-size: 0.82rem;
     text-align: center;
+}
+
+/* İKİ SATIR ARASINDAKİ YATAY MERKEZİ AYIRAÇ */
+.footer-divider {
+    width: 60%;
+    max-width: 600px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+    margin: 4px 0;
+}
+
+/* MOBİL UYUM */
+@media (max-width: 840px) {
+    .footer-content, 
+    .footer-content2 {
+        gap: 10px;
+    }
+
+    .footer-divider {
+        width: 80%;
+    }
 }
 
 /* HAMBURGER MENÜ */
