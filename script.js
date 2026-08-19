@@ -112,7 +112,7 @@ const yazi = document.getElementById('ozel-yazi');
 
 yazi.addEventListener('click', (event) => {
   // detail özelliği seri tıklama sayısını verir
-    if (event.detail === 3) {
+    if (event.detail === 5) {
     // Aynı sekmede açmak için:
         window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1'; 
 
