@@ -636,6 +636,7 @@ p {
 
     .main-nav.open {
         display: flex;
+        z-index: 1400;   /* ekle — footer'ın (1300) üstüne çıksın */
     }
 
     .nav-item-mobile-only {
