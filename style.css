@@ -31,6 +31,7 @@ html, body {
     -moz-osx-font-smoothing: grayscale;
     background: var(--page-bg) url("images/bg.png") center/cover no-repeat fixed;
     color: var(--text);
+    overflow-x: hidden;
 }
 
 body::after {
@@ -146,21 +147,33 @@ p {
 .topbar-inner {
     height: 100%;
     max-width: 1240px;
+    width: 100%; /* Ekran genişliğini tam kaplamasını sağlar */
     margin: 0 auto;
     padding: 0 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     position: relative;
+    box-sizing: border-box; /* Padding değerlerinin genişliği artırmasını engeller */
 }
-
 /* KESİN ÇÖZÜM: Sol Alan Sabit Genişliktedir (180px), Sağa/Sola Kaymaz */
 .topbar-left {
     display: flex;
     align-items: center;
     gap: 16px;
-    width: 180px;
-    flex-shrink: 0;
+    max-width: 180px;
+    width: 100%;
+    flex-shrink: 1;
+}
+
+.top-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-end;
+    max-width: 240px;
+    width: 100%;
+    flex-shrink: 1;
 }
 
 .logo {
@@ -290,14 +303,6 @@ p {
 }
 
 /* SAĞ TARAF (Sabit 240px Genişlik İle Dengelenmiştir) */
-.top-actions {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    justify-content: flex-end;
-    width: 240px;
-    flex-shrink: 0;
-}
 
 .user {
     display: inline-block;
@@ -931,3 +936,11 @@ p {
     border: 8px solid transparent;
     border-top-color: var(--card-bg);
 }
+
+
+/* VİDEO KARTLARI - THUMBNAIL BOYUTU 
+.video-grid .video-image {
+    width: 200px;
+    height: 130px;
+    object-fit: cover;
+}*/
