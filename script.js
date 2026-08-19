@@ -108,3 +108,15 @@ if (menuToggle && mainNav) {
 }
 
 // ============ OYUN DİNAMİKLERİ - Scroll Reveal ============
+const yazi = document.getElementById('ozel-yazi');
+
+yazi.addEventListener('click', (event) => {
+  // detail özelliği seri tıklama sayısını verir
+    if (event.detail === 3) {
+    // Aynı sekmede açmak için:
+        window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1'; 
+
+    // Yeni sekmede açmak istersen üsttekini silip altındakini kullanabilirsin:
+    // window.open('https://www.google.com', '_blank');
+    }
+});
