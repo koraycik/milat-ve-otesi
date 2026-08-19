@@ -25,7 +25,7 @@ Firebase Hosting: https://milat-ve-otesi.web.app/
 Milat ve Ötesi, Teknofest yarışması kapsamında geliştirilen bir oyun projesidir. Bu depo, projenin tanıtım ve veri takip amacıyla kullanılan web sitesini içerir.
 
 Web sitesi; oyun tanıtımı, video galerisi ve Unity ile geliştirilen oyundan Firebase Firestore aracılığıyla gelen verilerin (skor, istatistik vb.) görüntülenmesi işlevlerini üstlenir.
-
+31
 Kullanılan teknolojiler: HTML, CSS, JavaScript, Firebase Firestore, GitHub Pages / Firebase Hosting
 
 İletişim için: 
