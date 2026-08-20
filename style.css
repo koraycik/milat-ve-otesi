@@ -69,7 +69,7 @@ h1 {
     letter-spacing: -0.01em;
 }
 
-/* BÜYÜK ANA BAŞLIK ("Milat ve Ötesi!") */
+/* BÜYÜK ANA BAŞLIK */
 #cake {
     position: relative;
     z-index: 1;
@@ -108,7 +108,7 @@ h1 {
 }
 
 @media (prefers-reduced-motion: reduce) {
-    #cake, .photo {
+    #cake, .photo, .dyn-card {
         animation: none !important;
         transition: none !important;
         opacity: 1 !important;
@@ -147,16 +147,16 @@ p {
 .topbar-inner {
     height: 100%;
     max-width: 1240px;
-    width: 100%; /* Ekran genişliğini tam kaplamasını sağlar */
+    width: 100%;
     margin: 0 auto;
     padding: 0 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     position: relative;
-    box-sizing: border-box; /* Padding değerlerinin genişliği artırmasını engeller */
+    box-sizing: border-box;
 }
-/* KESİN ÇÖZÜM: Sol Alan Sabit Genişliktedir (180px), Sağa/Sola Kaymaz */
+
 .topbar-left {
     display: flex;
     align-items: center;
@@ -193,7 +193,7 @@ p {
     transform: scale(1.04);
 }
 
-/* DİL BUTONU (Genişliği 58px Olarak Sabitlendi) */
+/* DİL BUTONU */
 .lang-dropdown {
     position: relative;
     z-index: 1200;
@@ -262,7 +262,7 @@ p {
     font-weight: 700;
 }
 
-/* ORTADAKİ NAVİGASYON (Esnek Alan) */
+/* ORTADAKİ NAVİGASYON */
 .main-nav {
     display: flex;
     gap: 12px;
@@ -301,8 +301,6 @@ p {
     background: linear-gradient(135deg, rgba(245, 176, 66, 0.4), rgba(245, 176, 66, 0.15));
     box-shadow: 0 5px 16px rgba(245, 176, 66, 0.3);
 }
-
-/* SAĞ TARAF (Sabit 240px Genişlik İle Dengelenmiştir) */
 
 .user {
     display: inline-block;
@@ -355,50 +353,47 @@ p {
     margin: 0;
 }
 
-/* KARTLAR VE KAYDIRMA ANİMASYONU */
-@keyframes scrollBlurBoth {
-    0% {
-        opacity: 0.3;
-        transform: translateY(40px);
-        filter: blur(8px);
-    }
-    18% {
-        opacity: 1;
-        transform: translateY(0);
-        filter: blur(0);
-    }
-    82% {
-        opacity: 1;
-        transform: translateY(0);
-        filter: blur(0);
-    }
-    100% {
-        opacity: 0.3;
-        transform: translateY(-40px);
-        filter: blur(8px);
-    }
-}
-.photo {
+/* ======================================================
+   KARTLAR VE ÇİFT YÖNLÜ (HEM ÜSTTEN HEM ALTTAN) KAYDIRMA EFEKTİ
+   ====================================================== */
+.photo, .dyn-card {
     position: relative;
     z-index: 1;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
     background: var(--card-bg);
     border: 1px solid var(--card-border);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     padding: 24px;
-    margin: 0 auto 30px;
-    max-width: 800px;
     border-radius: 18px;
     box-shadow: 0 10px 30px rgba(11, 35, 64, 0.08);
 
-    animation: scrollBlurBoth linear both;
-    animation-timeline: view(block var(--topbar-height) var(--footer-height));
-    animation-range: cover 0% cover 100%;
+    /* Ekran Dışındaki Durum (Üst Menünün Altında veya Ekranın En Altında Gizli, Bulanık ve Şeffaf) */
+    opacity: 0;
+    transform: translateY(30px) scale(0.97);
+    filter: blur(10px);
+
+    /* Giriş ve Çıkış Efektlerinin Yumuşaklığı */
+    transition: opacity 0.45s ease-out, 
+                transform 0.45s ease-out, 
+                filter 0.45s ease-out;
+    will-change: opacity, transform, filter;
+}
+
+/* Ekrana Girdiği Hali (Hem Yukarı Hem Aşağı Kaydırırken) */
+.photo.visible, .dyn-card.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+}
+
+.photo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin: 0 auto 30px;
+    max-width: 800px;
 }
 
 .photo:hover {
@@ -521,12 +516,11 @@ p {
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    align-items: center;  /* Tüm elemanları merkeze hizalar */
+    align-items: center;
     justify-content: center;
     gap: 12px;
 }
 
-/* YAZILARI KENDİ İÇİNDE ORTALAYAN VE YAN YANA DİZEN KURAL */
 .footer-content, 
 .footer-content2 {
     display: flex;
@@ -546,25 +540,12 @@ p {
     text-align: center;
 }
 
-/* İKİ SATIR ARASINDAKİ YATAY MERKEZİ AYIRAÇ */
 .footer-divider {
     width: 60%;
     max-width: 600px;
     height: 1px;
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
     margin: 4px 0;
-}
-
-/* MOBİL UYUM */
-@media (max-width: 840px) {
-    .footer-content, 
-    .footer-content2 {
-        gap: 10px;
-    }
-
-    .footer-divider {
-        width: 80%;
-    }
 }
 
 /* HAMBURGER MENÜ */
@@ -641,7 +622,7 @@ p {
 
     .main-nav.open {
         display: flex;
-        z-index: 1400;   /* ekle — footer'ın (1300) üstüne çıksın */
+        z-index: 1400;
     }
 
     .nav-item-mobile-only {
@@ -658,8 +639,6 @@ p {
         align-items: center;
         padding: 20px;
         gap: 16px;
-        animation-timeline: view(block var(--topbar-height) 0px);
-        animation-range: cover 0% cover 100%;
     }
 
     .video-image {
@@ -691,16 +670,20 @@ p {
     .menu-toggle[aria-expanded="true"] span:nth-child(3) {
         transform: translateY(-8.5px) rotate(-45deg);
     }
-/*
-    .team-member{
-        flex-direction: column;
-    }*/
+
+    .footer-content, 
+    .footer-content2 {
+        gap: 10px;
+    }
+
+    .footer-divider {
+        width: 80%;
+    }
 }
 
 #contact-link {
     color: var(--topbar-text);
     text-decoration: none;
-    font-weight: 500;
     transition: color .18s ease, text-decoration-color .18s ease;
 }
 
@@ -714,6 +697,7 @@ p {
     flex-direction: column;
     align-items: center;
     text-align: center;
+    position: relative;
 }
 
 .profile-img {
@@ -721,20 +705,20 @@ p {
     height: 100px;          
     border-radius: 50%;     
     object-fit: cover;      
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
-.profile-img:hover{
+.profile-img:hover {
     box-shadow: 0 0 20px rgba(201, 172, 127, 0.9), 0 0 35px rgba(201, 172, 127, 0.5);
     transform: scale(1.05); 
     border-color: #c9ac7f;
 }
 
-.team-member-name:hover{
+.team-member-name:hover {
     transform: scale(1.05);
     font-weight: bold;
 }
 
-/* ============ OYUN DİNAMİKLERİ ============ */
 /* ============ OYUN DİNAMİKLERİ ============ */
 .game-dynamics {
     padding-bottom: 20px;
@@ -764,28 +748,6 @@ p {
     flex-shrink: 0;
 }
 
-/* --- Ortak kart görünümü (.photo ile aynı dil) --- */
-.dyn-card {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    padding: 24px 20px;
-    border-radius: 18px;
-    box-shadow: 0 10px 30px rgba(11, 35, 64, 0.08);
-    transition: box-shadow 0.3s ease, border-color 0.3s ease;
-
-    animation: scrollBlurBoth linear both;
-    animation-timeline: view(block var(--topbar-height) var(--footer-height));
-    animation-range: cover 0% cover 100%;
-}
-
 .dyn-card:hover {
     box-shadow: 0 16px 36px rgba(11, 35, 64, 0.15);
     border-color: var(--card-hover-border);
@@ -802,7 +764,6 @@ p {
     margin: 0;
 }
 
-/* Döngü adımları */
 .loop-step {
     flex: 1 1 0;
     min-width: 0;
@@ -866,7 +827,6 @@ p {
     white-space: nowrap;
 }
 
-/* MOBİL UYUM */
 @media (max-width: 840px) {
     .game-loop {
         flex-direction: column;
@@ -881,15 +841,6 @@ p {
     .loop-arrow {
         transform: rotate(90deg);
     }
-
-    .dyn-card {
-        animation-timeline: view(block var(--topbar-height) 0px);
-        animation-range: cover 0% cover 100%;
-    }
-}
-
-.team-member {
-    position: relative;
 }
 
 .member-popup {
@@ -936,11 +887,3 @@ p {
     border: 8px solid transparent;
     border-top-color: var(--card-bg);
 }
-
-
-/* VİDEO KARTLARI - THUMBNAIL BOYUTU 
-.video-grid .video-image {
-    width: 200px;
-    height: 130px;
-    object-fit: cover;
-}*/
