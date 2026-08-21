@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <title>Proje Asistanı - Milat ve Ötesi</title>
+    <link rel="stylesheet" href="style.css?v=18" />
+</head>
+<body>
+
+    <h1>Proje Hakkında Soru Sor</h1>
+
+    <div id="ai-modul">
+        <div id="mesajlar"></div>
+        <input id="soru-input" type="text" placeholder="Proje hakkında bir şey sor..." />
+        <button id="gonder-btn">Sor</button>
+    </div>
+
+    <script>
+        const FUNCTION_URL = "/.netlify/functions/soruSor";
+
+        document.getElementById("gonder-btn").addEventListener("click", async () => {
+        const input = document.getElementById("soru-input");
+        const soru = input.value.trim();
+        if (!soru) return;
+
+        const mesajlar = document.getElementById("mesajlar");
+        mesajlar.innerHTML += `<p><b>Sen:</b> ${soru}</p>`;
+        input.value = "";
+        mesajlar.innerHTML += `<p id="yukleniyor"><i>Yazıyor...</i></p>`;
+
+        try {
+            const res = await fetch(FUNCTION_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ soru }),
+            });
+            const data = await res.json();
+            document.getElementById("yukleniyor").remove();
+            mesajlar.innerHTML += `<p><b>Asistan:</b> ${data.cevap}</p>`;
+        } catch (err) {
+            document.getElementById("yukleniyor").remove();
+            mesajlar.innerHTML += `<p style="color:red">Hata oluştu, tekrar dene.</p>`;
+        }
+        });
+    </script>
+
+</body>
+</html>
