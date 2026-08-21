@@ -1,0 +1,24 @@
+{
+  "name": "milat-ve-otesi",
+  "version": "1.0.0",
+  "description": "Milat ve Ötesi",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/koraycik/milat-ve-otesi.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/koraycik/milat-ve-otesi/issues"
+  },
+  "homepage": "https://github.com/koraycik/milat-ve-otesi#readme",
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1"
+  }
+}
