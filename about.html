@@ -1,48 +1,181 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8" />
-    <title>Proje Asistanı - Milat ve Ötesi</title>
-    <link rel="stylesheet" href="style.css?v=18" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Milat ve Ötesi - AI Asistan</title>
+    <link rel="stylesheet" href="style.css?v=20">
+    <script src="script.js?v=2" defer></script>
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Libre+Baskerville:wght@400;700&display=swap">
 </head>
 <body>
+    <header class="topbar">
+        <div class="topbar-inner">
+            <div id="lang-dropdown" class="lang-dropdown">
+                <button id="lang-btn" class="lang-button" aria-haspopup="listbox" aria-expanded="false">Dil</button>
+                <ul id="lang-list" class="lang-list" role="listbox" aria-labelledby="lang-btn" hidden>
+                    <li role="option" data-lang="tr" aria-selected="false">TR</li>
+                    <li role="option" data-lang="en" aria-selected="false">EN</li>
+                </ul>
+            </div>
+            
+            <button id="menu-toggle" class="menu-toggle" aria-label="Menü" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
 
-    <h1>Proje Hakkında Soru Sor</h1>
+            <nav class="main-nav" role="navigation" aria-label="Ana Menü">
+                <a class="nav-item" href="index.html" data-en="Main Menu" data-tr="Ana Menü">Ana Menü</a>
+                <a class="nav-item" href="videos.html" data-en="Videos" data-tr="Videolar">Videolar</a>
+                <a class="nav-item" href="game_dynamics.html" data-en="Game Dynamics" data-tr="Oyun Dinamikleri">Oyun Dinamikleri</a>
+                <a class="nav-item special" href="about.html" data-en="About Our Game" data-tr="Oyunumuz Hakkında Bilgi Al">Oyunumuz Hakkında Bilgi Al</a>
+                <a class="nav-item nav-item-mobile-only" href="#" data-en="Click for Download Our Game" data-tr="Oyunumuzu İndirmek İçin Tıklayınız">Oyunumuzu İndirmek İçin Tıklayınız</a>
+            </nav>
 
-    <div id="ai-modul">
-        <div id="mesajlar"></div>
-        <input id="soru-input" type="text" placeholder="Proje hakkında bir şey sor..." />
-        <button id="gonder-btn">Sor</button>
+            <div class="top-actions">
+                <a class="user" href="#" data-en="Click for Download Our Game" data-tr="Oyunumuzu İndirmek İçin Tıklayınız">Oyunumuzu İndirmek İçin Tıklayınız</a>
+            </div>
+        </div>
+    </header>
+
+    <h1 style="text-align: center; margin-top: 10px;" 
+        data-tr="Proje Hakkında Soru Sor" 
+        data-en="Ask About The Project" id="cake">Proje Hakkında Soru Sor</h1>
+
+    <!-- Yapay Zeka Sohbet Arayüzü -->
+    <div class="ai-container">
+        <div id="mesajlar" class="chat-messages">
+            <div class="chat-bubble ai" id="welcome-bubble">
+                <!-- Dil seçimine göre dinamik dolar -->
+            </div>
+        </div>
+        <div class="chat-input-area">
+            <input id="soru-input" type="text" placeholder="Proje hakkında bir şey sor..." autocomplete="off" />
+            <button id="gonder-btn" data-tr="Gönder" data-en="Send">Gönder</button>
+        </div>
     </div>
 
     <script>
         const FUNCTION_URL = "https://milat-ve-otesi.netlify.app/.netlify/functions/soruSor";
-
-        document.getElementById("gonder-btn").addEventListener("click", async () => {
-        const input = document.getElementById("soru-input");
-        const soru = input.value.trim();
-        if (!soru) return;
-
+        const gonderBtn = document.getElementById("gonder-btn");
+        const soruInput = document.getElementById("soru-input");
         const mesajlar = document.getElementById("mesajlar");
-        mesajlar.innerHTML += `<p><b>Sen:</b> ${soru}</p>`;
-        input.value = "";
-        mesajlar.innerHTML += `<p id="yukleniyor"><i>Yazıyor...</i></p>`;
+        const welcomeBubble = document.getElementById("welcome-bubble");
 
-        try {
-            const res = await fetch(FUNCTION_URL, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ soru }),
-            });
-            const data = await res.json();
-            document.getElementById("yukleniyor").remove();
-            mesajlar.innerHTML += `<p><b>Asistan:</b> ${data.cevap}</p>`;
-        } catch (err) {
-            document.getElementById("yukleniyor").remove();
-            mesajlar.innerHTML += `<p style="color:red">Hata oluştu, tekrar dene.</p>`;
+        // Dil metinleri
+        const aiTexts = {
+            tr: {
+                welcome: "Merhaba! Zamanın İvmesi projesi ve Milat ve Ötesi takımı hakkında merak ettiğin her şeyi bana sorabilirsin.",
+                placeholder: "Proje hakkında bir şey sor...",
+                writing: "Yazıyor...",
+                error: "Bir hata oluştu, lütfen tekrar deneyin."
+            },
+            en: {
+                welcome: "Hello! Feel free to ask me anything about 'The Acceleration of Time' project and the 'Milat ve Ötesi' team.",
+                placeholder: "Ask something about the project...",
+                writing: "Typing...",
+                error: "An error occurred, please try again."
+            }
+        };
+
+        // O anki dili al
+        function getCurrentLang() {
+            return localStorage.getItem("selectedLang") || document.documentElement.lang || "tr";
         }
+
+        // Arayüz metinlerini seçili dile göre güncelle
+        function updateAiLanguage() {
+            const currentLang = getCurrentLang();
+            const texts = aiTexts[currentLang] || aiTexts.tr;
+            
+            if (welcomeBubble && mesajlar.children.length === 1) {
+                welcomeBubble.innerHTML = texts.welcome;
+            }
+            soruInput.placeholder = texts.placeholder;
+        }
+
+        async function soruGonder() {
+            const soru = soruInput.value.trim();
+            if (!soru) return;
+
+            const currentLang = getCurrentLang();
+            const texts = aiTexts[currentLang] || aiTexts.tr;
+
+            // Kullanıcı mesajını ekle
+            mesajlar.innerHTML += `<div class="chat-bubble user">${soru}</div>`;
+            soruInput.value = "";
+            
+            // Yükleniyor durumunu ekle
+            const yukleniyorId = "yukleniyor-" + Date.now();
+            mesajlar.innerHTML += `<div id="${yukleniyorId}" class="chat-bubble ai"><i>${texts.writing}</i></div>`;
+            mesajlar.scrollTop = mesajlar.scrollHeight;
+
+            try {
+                const res = await fetch(FUNCTION_URL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    // İstek gövdesine seçili dili (lang) da ekliyoruz
+                    body: JSON.stringify({ soru, lang: currentLang }),
+                });
+                const data = await res.json();
+                
+                document.getElementById(yukleniyorId).remove();
+                mesajlar.innerHTML += `<div class="chat-bubble ai">${data.cevap}</div>`;
+            } catch (err) {
+                document.getElementById(yukleniyorId).remove();
+                mesajlar.innerHTML += `<div class="chat-bubble ai" style="color:#ff6b6b;">${texts.error}</div>`;
+            }
+            mesajlar.scrollTop = mesajlar.scrollHeight;
+        }
+
+        gonderBtn.addEventListener("click", soruGonder);
+        
+        soruInput.addEventListener("keypress", (e) => {
+            if (e.key === "Enter") soruGonder();
+        });
+
+        // Sayfa yüklendiğinde dili ayarla
+        document.addEventListener("DOMContentLoaded", () => {
+            updateAiLanguage();
+        });
+
+        // Eğer script.js içinden dil değişiminde bir event fırlatıyorsanız veya tıklama dinliyorsanız:
+        document.querySelectorAll("#lang-list li").forEach(li => {
+            li.addEventListener("click", () => {
+                setTimeout(updateAiLanguage, 50);
+            });
         });
     </script>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-content2">
+                <p data-en="Team Name: Milat ve Otesi" data-tr="Takım Adı: Milat ve Ötesi">Takım Adı: Milat ve Ötesi </p>
+                <p>|</p>
+                <p data-en="Project Name: The Acceleration of Time" data-tr="Proje Adı: Zamanın İvmesi">Proje Adı: Zamanın İvmesi </p>
+            </div>
+        
+            <div class="footer-divider"></div>
+
+            <div class="footer-content">
+                <p>Gmail: </p>
+                <a id="contact-link" href="mailto:milatveotesi@gmail.com">milatveotesi@gmail.com</a>
+                <p>|</p>
+                <p data-en="Instagram: " data-tr="İnstagram: ">İnstagram: </p>
+                <a id="contact-link" href="https://www.instagram.com/milatveotesi/?hl=en" target="_blank">@milatveotesi</a>
+            </div>
+
+            <div class="footer-divider"></div>
+
+            <div class="footer-content">
+                <p id="ozel-yazi" data-en="&copy; 2026 Milat ve Otesi. All rights reserved." data-tr="&copy; 2026 Milat ve Otesi. Tüm hakları saklıdır.">&copy; 2026 Milat ve Otesi. Tüm hakları saklıdır.</p>
+            </div>
+        </div>
+    </footer>
 
 </body>
 </html>

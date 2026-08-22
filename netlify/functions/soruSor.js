@@ -20,7 +20,7 @@ exports.handler = async (event) => {
     return { statusCode: 405, headers: corsHeaders, body: "Sadece POST" };
   }
 
-  const { soru } = JSON.parse(event.body);
+  const { soru, lang } = JSON.parse(event.body);
   if (!soru) {
     return {
       statusCode: 400,
@@ -29,12 +29,18 @@ exports.handler = async (event) => {
     };
   }
 
+  const dilTalimati = lang === "en"
+    ? "Please answer strictly in English, regardless of the language of the question."
+    : "Soru hangi dilde sorulursa sorulsun, lütfen cevabı Türkçe ver.";
+
   const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
   const model = genAI.getGenerativeModel({
     model: "gemini-3.6-flash",
     systemInstruction: `Sen "Milat ve Ötesi" projesi hakkında bilgi veren bir asistansın.
 Sadece aşağıdaki rapora dayanarak cevap ver. Raporda olmayan bir şey sorulursa,
 bilmediğini söyle, uydurma.
+
+${dilTalimati}
 
 RAPOR:
 ${raporMetni}`,
