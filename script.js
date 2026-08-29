@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const langList = document.getElementById('lang-list');
     const langDropdown = document.getElementById('lang-dropdown');
 
-    // Hafızadan mevcut dili al, yoksa 'tr' seç
     let currentLang = localStorage.getItem('site-lang') || 'tr';
 
     applyLanguage(currentLang);
@@ -62,31 +61,23 @@ document.addEventListener("DOMContentLoaded", () => {
         document.documentElement.lang = lang;
     }
 
-    // ============ HEM ÜSTTEN HEM ALTTAN BÖLGENİ KORUYAN ANİMASYON ============
     const elements = document.querySelectorAll('.photo, .dyn-card');
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                // Eleman üst menü ile ekran altı arasındaki görünür alandaysa sınıfı ekle
                 entry.target.classList.add('visible');
             } else {
-                // Eleman üst menünün altına girdiğinde VEYA ekranın en altından çıktığında sınıfı kaldır (bulanıklaşsın/gizlensin)
                 entry.target.classList.remove('visible'); 
             }
         });
     }, {
         threshold: 0.15, 
-        /* 
-           -72px: Üst sabit menünün tam yüksekliği kadardır. 
-           Böylece kart menünün sınırına girdiği an yok olma efekti devreye girer.
-        */
         rootMargin: "-72px 0px -40px 0px"
     });
 
     elements.forEach(el => observer.observe(el));
 
-    // ============ HAMBURGER MENÜ ============
     const menuToggle = document.getElementById('menu-toggle');
     const mainNav = document.querySelector('.main-nav');
 
@@ -104,7 +95,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // ============ EASTER EGG ============
     const yazi = document.getElementById('ozel-yazi');
     if (yazi) {
         yazi.addEventListener('click', (event) => {

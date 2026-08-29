@@ -99,18 +99,16 @@
 
             if (soru.toLowerCase() === "/malatyamardin") {
                 soruInput.value = "";
-                window.location.href = "malatyamardin.html"; // istediğin sayfa adını yaz
+                window.location.href = "malatyamardin.html"; 
                 return;
     }
 
             const currentLang = getCurrentLang();
             const texts = aiTexts[currentLang] || aiTexts.tr;
 
-            // Kullanıcı mesajını ekle
             mesajlar.innerHTML += `<div class="chat-bubble user">${soru}</div>`;
             soruInput.value = "";
             
-            // Yükleniyor durumunu ekle
             const yukleniyorId = "yukleniyor-" + Date.now();
             mesajlar.innerHTML += `<div id="${yukleniyorId}" class="chat-bubble ai"><i>${texts.writing}</i></div>`;
             mesajlar.scrollTop = mesajlar.scrollHeight;
