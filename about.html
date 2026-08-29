@@ -102,6 +102,12 @@
             const soru = soruInput.value.trim();
             if (!soru) return;
 
+            if (soru.toLowerCase() === "/malatyamardin") {
+                soruInput.value = "";
+                window.location.href = "malatyamardin.html"; // istediğin sayfa adını yaz
+                return;
+    }
+
             const currentLang = getCurrentLang();
             const texts = aiTexts[currentLang] || aiTexts.tr;
 
