@@ -46,11 +46,9 @@
         data-tr="Proje Hakkında Soru Sor" 
         data-en="Ask About The Project" id="cake">Proje Hakkında Soru Sor</h1>
 
-    <!-- Yapay Zeka Sohbet Arayüzü -->
     <div class="ai-container">
         <div id="mesajlar" class="chat-messages">
             <div class="chat-bubble ai" id="welcome-bubble">
-                <!-- Dil seçimine göre dinamik dolar -->
             </div>
         </div>
         <div class="chat-input-area">
@@ -66,7 +64,6 @@
         const mesajlar = document.getElementById("mesajlar");
         const welcomeBubble = document.getElementById("welcome-bubble");
 
-        // Dil metinleri
         const aiTexts = {
             tr: {
                 welcome: "Merhaba! Zamanın İvmesi projesi ve Milat ve Ötesi takımı hakkında merak ettiğin her şeyi bana sorabilirsin.",
@@ -82,12 +79,10 @@
             }
         };
 
-        // O anki dili al
         function getCurrentLang() {
             return localStorage.getItem("selectedLang") || document.documentElement.lang || "tr";
         }
 
-        // Arayüz metinlerini seçili dile göre güncelle
         function updateAiLanguage() {
             const currentLang = getCurrentLang();
             const texts = aiTexts[currentLang] || aiTexts.tr;
@@ -124,7 +119,6 @@
                 const res = await fetch(FUNCTION_URL, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    // İstek gövdesine seçili dili (lang) da ekliyoruz
                     body: JSON.stringify({ soru, lang: currentLang }),
                 });
                 const data = await res.json();
@@ -144,12 +138,10 @@
             if (e.key === "Enter") soruGonder();
         });
 
-        // Sayfa yüklendiğinde dili ayarla
         document.addEventListener("DOMContentLoaded", () => {
             updateAiLanguage();
         });
 
-        // Eğer script.js içinden dil değişiminde bir event fırlatıyorsanız veya tıklama dinliyorsanız:
         document.querySelectorAll("#lang-list li").forEach(li => {
             li.addEventListener("click", () => {
                 setTimeout(updateAiLanguage, 50);

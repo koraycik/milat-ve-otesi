@@ -11,7 +11,6 @@ const corsHeaders = {
 };
 
 exports.handler = async (event) => {
-  // Tarayıcının gönderdiği "preflight" isteğine cevap ver
   if (event.httpMethod === "OPTIONS") {
     return { statusCode: 204, headers: corsHeaders, body: "" };
   }
