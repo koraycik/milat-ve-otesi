@@ -1,8 +1,12 @@
 // netlify/functions/sendMessage.js
 
 const ALLOWED_ORIGINS = [
+    'https://milat-ve-otesi.web.app',
+    'https://milat-ve-otesi.firebaseapp.com',
     'https://koraycik.github.io',
-    'https://milat-ve-otesi.web.app'
+    'http://localhost:5500',
+    'http://127.0.0.1:5500',
+    'http://localhost:3000'
 ];
 
 const TO_ADDRESS = 'milatveotesi@gmail.com';
@@ -48,10 +52,16 @@ exports.handler = async (event) => {
     }
 
     try {
+        const resendApiKey = process.env.RESEND_API_KEY;
+        if (!resendApiKey) {
+            console.error('HATA: Netlify paneline RESEND_API_KEY eklenmemiş!');
+            return { statusCode: 500, headers, body: JSON.stringify({ error: 'Sunucu yapılandırma hatası (API Key eksik).' }) };
+        }
+
         const resendResponse = await fetch('https://api.resend.com/emails', {
             method: 'POST',
             headers: {
-                'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
+                'Authorization': `Bearer ${resendApiKey}`,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
