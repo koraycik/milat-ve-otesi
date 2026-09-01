@@ -1,30 +1,23 @@
 // netlify/functions/sendMessage.js
 
-const ALLOWED_ORIGINS = [
-    'https://milat-ve-otesi.web.app',
-    'https://milat-ve-otesi.firebaseapp.com',
-    'https://koraycik.github.io',
-    'http://localhost:5500',
-    'http://127.0.0.1:5500',
-    'http://localhost:3000'
-];
-
-const TO_ADDRESS = 'bakiikoray@gmail.com';
+// Resend hesabının kayıtlı olduğu e-posta adresi:
+const TO_ADDRESS = 'bakiikoray@gmail.com'; 
 
 function corsHeaders(origin) {
-    const allowOrigin = ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
     return {
-        'Access-Control-Allow-Origin': allowOrigin,
-        'Access-Control-Allow-Headers': 'Content-Type',
+        // İsteği atan adresi (Firebase, GitHub Pages veya Localhost) dinamik olarak kabul eder
+        'Access-Control-Allow-Origin': origin || '*',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
         'Access-Control-Allow-Methods': 'POST, OPTIONS',
         'Content-Type': 'application/json'
     };
 }
 
 exports.handler = async (event) => {
-    const origin = event.headers.origin || event.headers.Origin || '';
+    const origin = event.headers.origin || event.headers.Origin || '*';
     const headers = corsHeaders(origin);
 
+    // OPTIONS preflight kontrolü için yanıt
     if (event.httpMethod === 'OPTIONS') {
         return { statusCode: 204, headers, body: '' };
     }
@@ -47,15 +40,12 @@ exports.handler = async (event) => {
     if (!emailRegex.test(email)) {
         return { statusCode: 400, headers, body: JSON.stringify({ error: 'Geçersiz e-posta adresi.' }) };
     }
-    if (message.length > 5000) {
-        return { statusCode: 400, headers, body: JSON.stringify({ error: 'Mesaj çok uzun.' }) };
-    }
 
     try {
         const resendApiKey = process.env.RESEND_API_KEY;
         if (!resendApiKey) {
             console.error('HATA: Netlify paneline RESEND_API_KEY eklenmemiş!');
-            return { statusCode: 500, headers, body: JSON.stringify({ error: 'Sunucu yapılandırma hatası (API Key eksik).' }) };
+            return { statusCode: 500, headers, body: JSON.stringify({ error: 'RESEND_API_KEY bulunamadı (Netlify Environment Variable eksik).' }) };
         }
 
         const resendResponse = await fetch('https://api.resend.com/emails', {
@@ -76,12 +66,12 @@ exports.handler = async (event) => {
         if (!resendResponse.ok) {
             const errText = await resendResponse.text();
             console.error('Resend API hatası:', errText);
-            return { statusCode: 502, headers, body: JSON.stringify({ error: 'Mesaj gönderilemedi, lütfen tekrar deneyin.' }) };
+            return { statusCode: 502, headers, body: JSON.stringify({ error: 'Resend servisi hatası.', details: errText }) };
         }
 
         return { statusCode: 200, headers, body: JSON.stringify({ success: true }) };
     } catch (err) {
         console.error('sendMessage fonksiyon hatası:', err);
-        return { statusCode: 500, headers, body: JSON.stringify({ error: 'Sunucu hatası oluştu.' }) };
+        return { statusCode: 500, headers, body: JSON.stringify({ error: 'Sunucu hatası oluştu.', details: err.message }) };
     }
 };

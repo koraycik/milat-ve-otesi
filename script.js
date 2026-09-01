@@ -144,7 +144,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 const data = await response.json().catch(() => ({}));
 
                 if (!response.ok) {
-                    throw new Error(data.error || 'Gönderim başarısız oldu.');
+                    const errorDetails = data.details ? ` (${data.details})` : '';
+                    throw new Error((data.error || 'Gönderim başarısız oldu.') + errorDetails);
                 }
 
                 contactStatus.textContent = (currentLang === 'tr')
@@ -154,9 +155,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 contactForm.reset();
             } catch (err) {
                 console.error('İletişim formu hatası:', err);
-                contactStatus.textContent = (currentLang === 'tr')
-                    ? 'Mesaj gönderilemedi, lütfen tekrar deneyin.'
-                    : 'Message could not be sent, please try again.';
+                contactStatus.textContent = `Hata: ${err.message}`;
                 contactStatus.classList.add('error');
             } finally {
                 contactSubmit.disabled = false;
