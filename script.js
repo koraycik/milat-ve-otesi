@@ -46,6 +46,14 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
+        const placeholderElements = document.querySelectorAll('[data-tr-placeholder]');
+        placeholderElements.forEach(el => {
+            const targetPlaceholder = el.getAttribute(`data-${lang}-placeholder`);
+            if (targetPlaceholder) {
+                el.setAttribute('placeholder', targetPlaceholder);
+            }
+});
+
         if (langBtn) {
             langBtn.textContent = (lang === 'tr') ? 'TR' : 'EN';
         }
@@ -94,6 +102,68 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
     }
+
+    // ==== İLETİŞİM FORMU ====
+const CONTACT_FUNCTION_URL = 'https://milat-ve-otesi.netlify.app/.netlify/functions/sendMessage';
+
+const contactForm = document.getElementById('contact-form');
+const contactStatus = document.getElementById('contact-status');
+const contactSubmit = document.getElementById('contact-submit');
+
+if (contactForm) {
+    contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const emailInput = document.getElementById('contact-email');
+        const messageInput = document.getElementById('contact-message');
+        const email = emailInput.value.trim();
+        const message = messageInput.value.trim();
+
+        contactStatus.textContent = '';
+        contactStatus.className = 'contact-status';
+
+        if (!email || !message) {
+            contactStatus.textContent = (currentLang === 'tr')
+                ? 'Lütfen tüm alanları doldurun.'
+                : 'Please fill in all fields.';
+            contactStatus.classList.add('error');
+            return;
+        }
+
+        contactSubmit.disabled = true;
+        const originalLabel = contactSubmit.textContent;
+        contactSubmit.textContent = (currentLang === 'tr') ? 'Gönderiliyor...' : 'Sending...';
+
+        try {
+            const response = await fetch(CONTACT_FUNCTION_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, message })
+            });
+
+            const data = await response.json().catch(() => ({}));
+
+            if (!response.ok) {
+                throw new Error(data.error || 'Gönderim başarısız oldu.');
+            }
+
+            contactStatus.textContent = (currentLang === 'tr')
+                ? 'Mesajınız gönderildi, teşekkürler!'
+                : 'Your message has been sent, thank you!';
+            contactStatus.classList.add('success');
+            contactForm.reset();
+        } catch (err) {
+            console.error('İletişim formu hatası:', err);
+            contactStatus.textContent = (currentLang === 'tr')
+                ? 'Mesaj gönderilemedi, lütfen tekrar deneyin.'
+                : 'Message could not be sent, please try again.';
+            contactStatus.classList.add('error');
+        } finally {
+            contactSubmit.disabled = false;
+            contactSubmit.textContent = originalLabel;
+        }
+    });
+}
 
     const yazi = document.getElementById('ozel-yazi');
     if (yazi) {
