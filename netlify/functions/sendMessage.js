@@ -9,7 +9,7 @@ const ALLOWED_ORIGINS = [
     'http://localhost:3000'
 ];
 
-const TO_ADDRESS = 'milatveotesi@gmail.com';
+const TO_ADDRESS = 'bakiikoray@gmail.com';
 
 function corsHeaders(origin) {
     const allowOrigin = ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
