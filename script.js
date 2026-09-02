@@ -104,7 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Vercel Uyumlu API Endpoint'leri
-    const CONTACT_FUNCTION_URL = '/api/sendMessage';
+    const CONTACT_FUNCTION_URL = 'https://milat-ve-otesi.vercel.app/api/soruSor';
     const AI_FUNCTION_URL = '/api/soruSor';
 
     const contactForm = document.getElementById('contact-form');

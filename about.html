@@ -60,7 +60,7 @@
     <script>
         // DÜZELTME: Artık Netlify yerine Vercel'deki kendi API rotamıza (relative path) istek atıyoruz.
         // Bu sayede hem sendMessage hem soruSor aynı domain/deployment üzerinden çalışır.
-        const FUNCTION_URL = "/api/soruSor";
+        const FUNCTION_URL = "https://milat-ve-otesi.vercel.app/api/soruSor";
         const gonderBtn = document.getElementById("gonder-btn");
         const soruInput = document.getElementById("soru-input");
         const mesajlar = document.getElementById("mesajlar");
