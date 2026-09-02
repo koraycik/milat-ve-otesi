@@ -1,0 +1,7 @@
+{
+    "functions": {
+        "api/soruSor.js": {
+            "includeFiles": "rapor.md"
+        }
+    }
+}
