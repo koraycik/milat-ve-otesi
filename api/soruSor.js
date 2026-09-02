@@ -29,7 +29,7 @@ export default async function handler(req, res) {
 
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
     const model = genAI.getGenerativeModel({
-      model: "gemini-1.5-flash",
+      model: "gemini-3.5-flash",
       systemInstruction: `Sen "Milat ve Ötesi" projesi hakkında bilgi veren bir asistansın.
 Sadece aşağıdaki rapora dayanarak cevap ver. Raporda olmayan bir şey sorulursa,
 bilmediğini söyle, uydurma.
