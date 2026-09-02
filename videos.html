@@ -90,9 +90,6 @@
             <div class="footer-divider"></div>
 
             <div class="footer-content">
-                <p>Gmail: </p>
-                <a id="contact-link" href="mailto:milatveotesi@gmail.com">milatveotesi@gmail.com</a>
-                <p>|</p>
                 <p data-en="Instagram: " data-tr="İnstagram: ">İnstagram: </p>
                 <a id="contact-link" href="https://www.instagram.com/milatveotesi/?hl=en" target="_blank">@milatveotesi</a>
             </div>
@@ -101,6 +98,32 @@
 
             <div class="footer-content">
                 <p id="ozel-yazi" data-en="&copy; 2026 Milat ve Otesi. All rights reserved." data-tr="&copy; 2026 Milat ve Otesi. Tüm hakları saklıdır.">&copy; 2026 Milat ve Otesi. Tüm hakları saklıdır.</p>
+            </div>
+
+            <div class="footer-divider"></div>
+
+            <div class="footer-contact">
+                <h4 data-en="Send Us a Message" data-tr="Bize Mesaj Gönder">Bize Mesaj Gönder</h4>
+                <form id="contact-form" class="contact-form" novalidate>
+                    <input
+                        type="email"
+                        id="contact-email"
+                        name="email"
+                        required
+                        data-en-placeholder="Your email address"
+                        data-tr-placeholder="E-posta adresiniz"
+                        placeholder="E-posta adresiniz">
+                    <textarea
+                        id="contact-message"
+                        name="message"
+                        rows="3"
+                        required
+                        data-en-placeholder="Your message..."
+                        data-tr-placeholder="Mesajınız..."
+                        placeholder="Mesajınız..."></textarea>
+                    <button type="submit" id="contact-submit" data-en="Send" data-tr="Gönder">Gönder</button>
+                    <p id="contact-status" class="contact-status" role="status" aria-live="polite"></p>
+                </form>
             </div>
         </div>
     </footer>

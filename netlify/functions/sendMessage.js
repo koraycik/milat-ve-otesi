@@ -1,11 +1,7 @@
-// netlify/functions/sendMessage.js
-
-// Resend hesabının kayıtlı olduğu e-posta adresi:
-const TO_ADDRESS = 'bakiikoray@gmail.com'; 
+const TO_ADDRESS = 'milatveotesi@gmail.com'; 
 
 function corsHeaders(origin) {
     return {
-        // İsteği atan adresi (Firebase, GitHub Pages veya Localhost) dinamik olarak kabul eder
         'Access-Control-Allow-Origin': origin || '*',
         'Access-Control-Allow-Headers': 'Content-Type, Authorization',
         'Access-Control-Allow-Methods': 'POST, OPTIONS',
@@ -17,7 +13,6 @@ exports.handler = async (event) => {
     const origin = event.headers.origin || event.headers.Origin || '*';
     const headers = corsHeaders(origin);
 
-    // OPTIONS preflight kontrolü için yanıt
     if (event.httpMethod === 'OPTIONS') {
         return { statusCode: 204, headers, body: '' };
     }
