@@ -103,8 +103,9 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // ==== İLETİŞİM FORMU ====
-    const CONTACT_FUNCTION_URL = 'https://milat-ve-otesi.netlify.app/.netlify/functions/sendMessage';
+    // Vercel Uyumlu API Endpoint'leri
+    const CONTACT_FUNCTION_URL = '/api/sendMessage';
+    const AI_FUNCTION_URL = '/api/soruSor';
 
     const contactForm = document.getElementById('contact-form');
     const contactStatus = document.getElementById('contact-status');
@@ -160,15 +161,6 @@ document.addEventListener("DOMContentLoaded", () => {
             } finally {
                 contactSubmit.disabled = false;
                 contactSubmit.textContent = originalLabel;
-            }
-        });
-    }
-
-    const yazi = document.getElementById('ozel-yazi');
-    if (yazi) {
-        yazi.addEventListener('click', (event) => {
-            if (event.detail === 20) {
-                window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1'; 
             }
         });
     }
