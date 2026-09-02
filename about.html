@@ -58,6 +58,8 @@
     </div>
 
     <script>
+        // DÜZELTME: Artık Netlify yerine Vercel'deki kendi API rotamıza (relative path) istek atıyoruz.
+        // Bu sayede hem sendMessage hem soruSor aynı domain/deployment üzerinden çalışır.
         const FUNCTION_URL = "/api/soruSor";
         const gonderBtn = document.getElementById("gonder-btn");
         const soruInput = document.getElementById("soru-input");
